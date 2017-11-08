@@ -32,6 +32,7 @@
       <div class="col-sm-2 sidenav">
         <h4>MENU</h4>
           <ul class="nav nav-pills nav-stacked">
+            <li><a href="/menu">TODAY</a></li>
           <li><a href="/menu/mon">MONDAY</a></li>
           <li><a href="/menu/tue">TUESDAY</a></li>
           <li><a href="/menu/wed">WEDNESDAY</a></li>
@@ -40,22 +41,22 @@
         </ul>
       </div>
       <div class="col-sm-9 text-center" >
-        <h2>MOMDAY MENU</h2>
-        <p>You can order lunch.</p>
+        <h2><%=dayofmenu%></h2>
+        <p>You can order meals.</br>Click menu which you want to order.</p></br>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Menu</th>
-              <th>Description</th>
-              <th>Price</th>
+              <th class="col-xs-3 text-center">Menu</th>
+              <th class="col-xs-6 text-center">Description</th>
+              <th class="col-xs-3 text-center">Price</th>
             </tr>
           </thead>
           <tbody id = "menu">
             <% for(var i=0; i<menus.length; i++) {%>
             <tr id = "<%=menus[i]['_id']%>" onclick="clickmenu(this.id)">
-              <td><%=menus[i]['menu']%></td>
-              <td><%=menus[i]['fidescription']%><br><%=menus[i]['endescription']%></td>
-              <td><%=menus[i]['price']%></td>
+              <td class="col-xs-3 text-center"><%=menus[i]['menu']%></td>
+              <td class="col-xs-6 text-left"><%=menus[i]['fidescription']%><br><%=menus[i]['endescription']%></td>
+              <td class="col-xs-3 text-center"><%=menus[i]['price']%></td>
             </tr>
         <% } %>
           </tbody>
@@ -68,6 +69,13 @@
     <img src="img/sodexo.png" width="80"><img src="img/metropolia.png" width="100">
   </footer>
   <script type="text/javascript">
+  $(".nav>li").each(function() {
+    var navItem = $(this);
+    if (navItem.find("a").attr("href") == location.pathname) {
+      navItem.addClass("active");
+    }
+});
+
   function clickmenu(id){
     console.log(data);
     var data = {"id":id};

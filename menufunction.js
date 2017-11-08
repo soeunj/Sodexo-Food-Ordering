@@ -21,7 +21,27 @@ function tome(){
   console.log(today_date);
   return today_date;
 }
-
+exports.clickDayOfMenu = function(click){
+  console.log(click);
+  if(click == 'mon'){
+    return "MONDAY MENU"
+  }
+  else if(click=='tue'){
+    return "TUESDAY MENU"
+  }
+  else if(click=='wed'){
+    return "WEDNESDAY MENU"
+  }
+  else if(click=='thu'){
+    return "THURSDAY MENU"
+  }
+  else if(click=='fri'){
+    return "FRIDAY MENU"
+  }
+  else{
+    return "TODAY MENU"
+  }
+}
 exports.forMenuFetch = function(clickday){
   var today = new Date().getDay();
   var day_number = {"mon":1, "tue":2, "wed":3, "thu":4, "fri":5};

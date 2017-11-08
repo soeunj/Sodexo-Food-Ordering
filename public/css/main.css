@@ -54,8 +54,14 @@
       background-color: #f1f1f1;
       height: 100%;
       padding-top: 30px;
+      width: 15%;
     }
-
+    .col-sm-9{
+      height: 100%;
+      width: 85%;
+      padding-left: 100px;
+      padding-right: 100px;
+    }
     footer {
       background-color: #80b866;
       color: white;
@@ -64,6 +70,9 @@
     }
     .navbar li a, .navbar .navbar-brand {
       color: #fff !important;
+    }
+    .nav>li.active a{
+      background-color:#c9b093 !important;
     }
     .navbar-nav  li a:hover, .navbar-nav li.active a{
       color: #c9b093 !important;
@@ -80,11 +89,8 @@
     .navbar-brand{
       font-size: 2em;
     }
-    table{
-      width:100%;
-    }
-    td{
-      text-align: left !important;
+    .center-block{
+      float: none !important;
     }
     @media screen and (max-width: 767px) {
       .sidenav {

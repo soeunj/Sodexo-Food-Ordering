@@ -20,19 +20,21 @@ app.get('/', (req, res) => {
 });
 app.get('/menu', (req, res) => {
   var today = menufunc.forTodayMenu();
-  console.log(today);
+  var dayofmenu = menufunc.clickDayOfMenu("today");
+  console.log(dayofmenu);
   Menu.find({date:today}, function(err, menus) {
     if (err) throw err;
-    console.log(menus);
-    res.render('menu.ejs', { menus: menus });
+    res.render('menu.ejs', { menus: menus, dayofmenu: dayofmenu});
   });
 });
 app.get('/menu/:id', (req,res) =>{
   var id = req.params.id;
   var date = menufunc.forMenuFetch(id);
+  var dayofmenu = menufunc.clickDayOfMenu(id);
+  console.log(dayofmenu);
   Menu.find({date:date}, function(err, menus) {
     if (err) throw err;
-    res.render('menu.ejs', { menus: menus });
+    res.render('menu.ejs', { menus: menus, dayofmenu: dayofmenu});
   });
 })
 app.get('/order', (req, res) => {
@@ -54,7 +56,7 @@ app.post('/minus', (req, res) => {
   func.decreaseCount(req.body);
   OrderList.find({}, function(err, orderlist) {
     if (err) throw err;
-    res.json({ orderlist: orderlist });
+    res.json({ orderlist: orderlist});
   });
 })
 
