@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <%- include header.ejs %>
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid" color="white">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Food Order System</a>
+  <nav class="navbar navbar-inverse sidebar" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#tab">
+          <span class="sr-only"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Food Order System</a>
+      </div>
+      <div id="tab" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">HOME<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-home"></span></a></li>
+          <li class="dropdown">
+            <a href="/menu" class="dropdown-toggle" data-toggle="dropdown">MENU<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-cutlery"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/menu">TODAY</a></li>
+              <li><a href="/menu/mon">MONDAY</a></li>
+              <li><a href="/menu/tue">TUESDAY</a></li>
+              <li><a href="/menu/wed">WEDNESDAY</a></li>
+              <li><a href="/menu/thu">THURSDAY</a></li>
+              <li><a href="/menu/fri">FRIDAY</a></li>
+            </ul>
+          </li>
+          <li><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
+          <li class="active dropdown">
+            <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/statistic">Today</a></li>
+              <li><a href="/statistic">Monthly</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse navbar-right" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="/">HOME</a></li>
-        <li><a href="/menu">MENU</a></li>
-        <li><a href="/order">ORDER</a></li>
-        <li class="active"><a href="/statistic">STATISTIC</a></li>
-      </ul>
-    </div>
+  </nav>
+
+  <div class="main container-fluid text-center">
+    <h2>STATISTIC</h2>
+    <p>You can see food order and waste food</p>
   </div>
-</nav>
-
-<div id="contents" class="container-fluid text-center">
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-    <h4>STATISTIC</h4>
-    <ul class="nav nav-pills nav-stacked">
-        <li><a href="#">TODAY</a></li>
-        <li><a href="#">DAILY</a></li>
-        <li><a href="#">WEEKLY</a></li>
-        <li><a href="#">MONTHLY</a></li>
-        <li><a href="#">YEARLY</a></li>
-        <li><a href="#">PUT FOOD DATA</a></li>
-    </ul>
-    </div>
-    <div class="col-sm-9 text-center">
-      <h2>STATISTIC</h2>
-      <p>You can see food order and waste food</p>
-    </div>
-  </div>
-</div>
-
-<footer class="container-fluid text-center">
-<img src="img/sodexo.png" width="80"><img src="img/metropolia.png" width="100">
-</footer>
-
 </body>
+
 </html>
