@@ -18,6 +18,8 @@
   "homepage": "https://github.com/soeunj/Sodexo-Food-Ordering#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bower": "^1.8.2",
+    "chart.js": "^2.7.1",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "hbs": "^4.0.1",

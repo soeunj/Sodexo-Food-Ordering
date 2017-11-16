@@ -28,7 +28,6 @@ exports.submitOrder = function(){
 
 exports.addMenuToOrderList = function(clickmenu){
   var id = clickmenu['id'];
-  console.log()
   Menu.findOne({_id:id}, function(err, menus) {
     if (err) throw err;
     OrderList.findOneAndUpdate({
@@ -56,9 +55,7 @@ exports.addMenuToOrderList = function(clickmenu){
       }
     });
   });
-
 }
-
 exports.decreaseCount = function(clickOrderList){
   var id = clickOrderList['id'];
   OrderList.findOne({_id:id}, function(err, orderlist) {

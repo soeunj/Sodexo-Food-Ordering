@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 
 var Menu = mongoose.model('menu',{
+  number:{
+    type: Number
+  },
   date:{
     type: String
   },
@@ -8,11 +11,17 @@ var Menu = mongoose.model('menu',{
     type: String,
     required: true
   },
-  fidescription:{
+  title_fi:{
     type: String,
   },
-  endescription:{
+  title_en:{
     type: String,
+  },
+  desc_fi:{
+    type:String,
+  },
+  desc_en:{
+    type:String,
   },
   price:{
     type: String,
