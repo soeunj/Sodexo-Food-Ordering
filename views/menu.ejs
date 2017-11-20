@@ -50,9 +50,10 @@
       </thead>
       <tbody id="menu">
         <% for(var i=0; i<menus.length; i++) {%>
-          <tr id="<%=menus[i]['_id']%>" onclick="clickmenu(this.id)">
-            <td class="col-xs-3 text-center">
-              <%=menus[i]['menu']%>
+          <tr id="<%=menus[i]['category']%>_<%=date%>" onclick="clickmenu(this.id)">
+            <td id="menu_category" class="col-xs-3 text-center">
+
+              <%=menus[i]['category'] %>
             </td>
             <td class="col-xs-6 text-left">
               <%=menus[i]['title_fi']%>
@@ -69,7 +70,7 @@
     </table>
   </div>
   <script type="text/javascript">
-    var today_day = new Date().getDay();
+  var today_day = new Date().getDay();
     var now_hour = new Date().getHours();
     var day_num = {
       "MONDAY MENU": 1,

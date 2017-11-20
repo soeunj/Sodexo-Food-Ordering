@@ -6,9 +6,6 @@ var {
   mongoose
 } = require('./db/database');
 var {
-  Menu
-} = require('./models/menu');
-var {
   Order
 } = require('./models/order');
 var {
@@ -28,39 +25,30 @@ app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 app.get('/menu', (req, res) => {
-  var today = menufunc.forTodayMenu();
-  var dayofmenu = menufunc.clickDayOfMenu("today");
-  var exist_flag = 1;
-  Menu.find({
-    date: today
-  }).sort({
-    number: 1
-  }).exec(
-    function(err, menus) {
-      if (err) throw err;
+  fetch_menu.fetch_menu("today").then(menus => {
+    var date = menufunc.thisDate("today");
       res.render('menu.ejs', {
         menus: menus,
-        dayofmenu: dayofmenu
+        dayofmenu: 'TODAY MENU',
+        date: date
       });
-    });
+  }).catch(err => {
+      console.log('Got error from fetch_menu', err);
+  });
 });
 app.get('/menu/:id', (req, res) => {
   var id = req.params.id;
-  var date = menufunc.forMenuFetch(id);
-  console.log("date"+date);
   var dayofmenu = menufunc.clickDayOfMenu(id);
-  Menu.find({
-    date: date
-  }).sort({
-    number: 1
-  }).exec(
-    function(err, menus) {
-      if (err) throw err;
+  var date = menufunc.thisDate(id);
+  fetch_menu.fetch_menu(id).then(menus => {
       res.render('menu.ejs', {
         menus: menus,
-        dayofmenu: dayofmenu
+        dayofmenu: dayofmenu,
+        date: date
       });
-    });
+  }).catch(err => {
+      console.log('Got error from fetch_menu', err);
+  });
 });
 app.get('/order', (req, res) => {
   OrderList.find({}, function(err, orderlist) {

@@ -8,25 +8,34 @@ var day_number = {
   "thu": 4,
   "fri": 5
 };
-var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-var thisweek_date = [];
 exports.date_to_string = function(date) {
   if (date < 10) date = '0' + date;
   return date;
 }
+/*
 date_to_string = function(date) {
   if (date < 10) date = '0' + date;
   return date;
-}
+}*/
+/*
 exports.forTodayMenu = function() {
   var date = date_to_string(day);
   var _month = date_to_string(month + 1);
   var today_date = year + '-' + _month + '-' + date;
   console.log(today_date);
   return today_date;
+}*/
+exports.thisDate = function(clickday){
+  if(clickday == "today"){
+    return new Date();
+  }
+  var today_day = new Date().getDay();
+  var day_difference = day_number[clickday] - today_day;
+  var _today = new Date(year, month, day);
+  var _clickday = new Date(_today.getTime()+(day_difference*1000*60*60*24));
+  return _clickday;
 }
-
-function thisweek() {
+/*function thisweek() {
   let today = new Date().getDay();
   let today_date = tome();
   for (let i = 0; i <= 6; i++) {
@@ -55,18 +64,21 @@ function thisweek() {
       thisweek_date.push(year + '-' + _month + '-' + _day);
     }
   }
-}
+}*/
+/*
 exports.get_thisweek = function(){
   thisweek();
   console.log(thisweek_date);
   return thisweek_date;
-}
+}*/
+/*
 function tome() {
   var date = date_to_string(day);
   var _month = date_to_string(month + 1);
   var today_date = year + '-' + _month + '-' + date;
   return today_date;
-}
+}*/
+
 exports.clickDayOfMenu = function(click) {
   console.log(click);
   if (click == 'mon') {
@@ -83,7 +95,9 @@ exports.clickDayOfMenu = function(click) {
     return "TODAY MENU"
   }
 }
+/*
 exports.forMenuFetch = function(clickday) {
   console.log(thisweek_date[day_number[clickday]]);
   return thisweek_date[day_number[clickday]];
 }
+*/
