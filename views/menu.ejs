@@ -3,7 +3,7 @@
 
 <head>
   <%- include header.ejs %>
-
+  <script type = "text/javascript" src="../../js/menu.js"></script>
 </head>
 
 <body>
@@ -25,13 +25,7 @@
               </ul>
             </li>
             <li><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
-            <li class="dropdown">
-              <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="/statistic">Today</a></li>
-                <li><a href="/statistic">Monthly</a></li>
-              </ul>
-            </li>
+            <li><a href="/statistic">STATISTIC<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a></li>
           </ul>
         </div>
     </div>
@@ -86,38 +80,7 @@
         navItem.addClass("active");
       }
     });
-    function clickmenu(id) {
-      var data = {
-        "id": id
-      };
-      if ((day_num[clickday] > today_day) || (clickday == "TODAY MENU")) {
-        sendOrderData(data);
-      } else if (day_num[clickday] == today_day) {
-        if (now_hour < 14) {
-          sendOrderData(data);
-        } else {
-          alert("It is too late to order. Today's menu should be ordered before 14 o'clock.");
-        }
-      } else {
-        alert("This day is not available to order.");
-      }
-    }
 
-    function sendOrderData(data) {
-      console.log(data);
-      $.ajax({
-        type: 'POST',
-        url: '/menu',
-        data: JSON.stringify(data),
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(data) {
-          console.log('success to send');
-          console.log(data);
-          window.location = '/order'
-        }
-      });
-    }
   </script>
 </body>
 

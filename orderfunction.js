@@ -12,6 +12,7 @@ exports.submitOrder = function() {
   OrderList.find({}, function(err, orderlist) {
     if (err) throw err;
     for (let i = 0; i < orderlist.length; i++) {
+      console.log(orderlist[i]['count']);
       var newOrder = new Order({
         menu: orderlist[i]['menu'],
         date: new Date,
@@ -20,14 +21,14 @@ exports.submitOrder = function() {
       });
       newOrder.save().then((doc) => {
         console.log(JSON.stringify(doc, undefined, 2));
+        OrderList.remove({}, function(err) {
+          if (err) throw err;
+          console.log("success to drop");
+        });
       }, (e) => {
         console.log('Unable to order');
       });
     }
-  });
-  OrderList.remove({}, function(err) {
-    if (err) throw err;
-    console.log("success to drop");
   });
 }
 
@@ -35,7 +36,7 @@ exports.addMenuToOrderList = function(clickmenu) {
   var menu = clickmenu['id'].toString().split('_')[0];
   OrderList.findOneAndUpdate({
     menu: clickmenu['id'].toString().split('_')[0],
-    date: clickmenu['id'].toString().split('_')[1].slice(0,15)
+    date: clickmenu['id'].toString().split('_')[1].slice(0, 15)
   }, {
     $inc: {
       count: +1
@@ -43,66 +44,24 @@ exports.addMenuToOrderList = function(clickmenu) {
   }, {
     returnOriginal: false
   }).then((result) => {
-      if (!result) {
-        var newOrderList = new OrderList({
-          date: clickmenu['id'].toString().split('_')[1].slice(0,15),
-          menu: clickmenu['id'].toString().split('_')[0],
-          count: 1
-        });
-        newOrderList.save().then((doc) => {
-          console.log(JSON.stringify(doc, undefined, 2));
-        }, (e) => {
-          console.log('Unable to save menu');
-        });
-      }
-  });
-}
-exports.decreaseCount = function(clickOrderList) {
-  var id = clickOrderList['id'];
-  OrderList.findOne({
-    _id: id
-  }, function(err, orderlist) {
-    if (err) throw err;
-    if (orderlist['count'] <= 1) {
-      console.log(orderlist['count']);
-      console.log("not available");
-    } else {
-      OrderList.findOneAndUpdate({
-        _id: orderlist['_id']
-      }, {
-        $inc: {
-          count: -1
-        }
-      }, {
-        returnOriginal: false
-      }).then((result) => {
-        if (!result) {
-          return res.status(404).send();
-        }
+    if (!result) {
+      var newOrderList = new OrderList({
+        date: clickmenu['id'].toString().split('_')[1].slice(0, 15),
+        menu: clickmenu['id'].toString().split('_')[0],
+        count: 1
+      });
+      newOrderList.save().then((doc) => {
+        console.log(JSON.stringify(doc, undefined, 2));
+      }, (e) => {
+        console.log('Unable to save menu');
       });
     }
   });
 }
-
-exports.increaseCount = function(clickOrderList) {
-  var id = clickOrderList['id'];
-  OrderList.findOne({
-    _id: id
-  }, function(err, orderlist) {
-    if (err) throw err;
-    OrderList.findOneAndUpdate({
-      _id: orderlist['_id']
-    }, {
-      $inc: {
-        count: +1
-      }
-    }, {
-      returnOriginal: false
-    }).then((result) => {
-      if (!result) {
-        return res.status(404).send();
-      }
-    });
+exports.changeCount = function(confirmOrderList) {
+  OrderList.update({_id:confirmOrderList['id']}, { $set: { count: confirmOrderList['count'] }}, function(err, updatedOrderlist){
+    if(err) throw err;
+    console.log(updatedOrderlist);
   });
 }
 exports.deleteMenuToOrderList = function(clickOrderList) {

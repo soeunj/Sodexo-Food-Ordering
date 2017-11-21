@@ -38,8 +38,10 @@ app.get('/menu', (req, res) => {
 });
 app.get('/menu/:id', (req, res) => {
   var id = req.params.id;
+  console.log(id);
   var dayofmenu = menufunc.clickDayOfMenu(id);
   var date = menufunc.thisDate(id);
+  console.log(date);
   fetch_menu.fetch_menu(id).then(menus => {
       res.render('menu.ejs', {
         menus: menus,
@@ -59,7 +61,16 @@ app.get('/order', (req, res) => {
   });
 });
 app.get('/statistic', (req, res) => {
-  res.render('statistic.ejs');
+  let date = menufunc.today_chart();
+  Order.aggregate([
+    { $match: {orderingfooddate: date } },
+    { $group: { _id: '$menu', count: { $sum: '$count'  } } }
+  ], function(err, result) {
+    if (err) throw err;
+    res.render('statistic.ejs', {
+      orderdata: result
+    });
+  });
 });
 
 app.post('/menu', (req, res) => {
@@ -67,18 +78,8 @@ app.post('/menu', (req, res) => {
   res.send(req.body);
 });
 
-app.post('/minus', (req, res) => {
-  func.decreaseCount(req.body);
-  OrderList.find({}, function(err, orderlist) {
-    if (err) throw err;
-    res.json({
-      orderlist: orderlist
-    });
-  });
-});
-
-app.post('/plus', (req, res) => {
-  func.increaseCount(req.body);
+app.post('/confirmcount', (req, res) => {
+  func.changeCount(req.body);
   OrderList.find({}, function(err, orderlist) {
     if (err) throw err;
     res.json({
@@ -96,7 +97,6 @@ app.post('/delete', (req, res) => {
     });
   });
 });
-
 app.get('/submitorder', (req, res) => {
   func.submitOrder();
   res.send();

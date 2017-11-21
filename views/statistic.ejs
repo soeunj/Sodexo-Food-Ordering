@@ -3,6 +3,7 @@
 
 <head>
   <%- include header.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
@@ -25,13 +26,7 @@
               </ul>
             </li>
             <li><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
-            <li class="active dropdown">
-              <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="/statistic">Today</a></li>
-                <li><a href="/statistic">Monthly</a></li>
-              </ul>
-            </li>
+            <li><a href="/statistic">STATISTIC<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a></li>
           </ul>
         </div>
     </div>
@@ -39,9 +34,45 @@
 
   <div class="main container-fluid text-center">
     <h2>STATISTIC</h2>
-    <p>You can see food order and waste food</p>
-    <canvas id="myChart" style="height: 400px; width: 400%;"></canvas>
+    <p>This graph shows today's order.</p>
+  </br>
+    <canvas id="myChart"></canvas>
   </div>
+  <script>
+    var orderdata = <%- JSON.stringify(orderdata) %>;
+    let _labels = [];
+    let _data = [];
+    for (let i = 0; i < orderdata.length; i++) {
+      _labels.push(orderdata[i]['_id']);
+      _data.push(orderdata[i]['count']);
+    }
+    new Chart(document.getElementById("myChart"), {
+      type: 'bar',
+      data: {
+        labels: _labels,
+        datasets: [{
+          backgroundColor: ["#4F5C2F", "#89A04F", "#B2C485", "#CADBAB", "#AAB683", "#909779", "#737764"],
+          data: _data
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Today's Order",
+          fontSize: 25
+        },
+        legend: {
+            display:false
+        }
+      }
+    });
+
+    Chart.defaults.global.responsive = true;
+    window.onload = function() {
+      var ctx = document.getElementById("myChart").getContext("2d");
+      window.myDoughnut = new Chart(ctx, config);
+    };
+  </script>
 </body>
 
 </html>

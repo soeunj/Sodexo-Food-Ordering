@@ -3,10 +3,12 @@ body, html {
   width: 100%;
   margin: 0;
 }
-	.main .row{
-		padding: 0px;
-		margin: 0px;
-	}
+
+.main .row {
+  padding: 0px;
+  margin: 0px;
+}
+
 body {
   font: 400 15px Lato, sans-serif;
   line-height: 1.8;
@@ -19,9 +21,11 @@ h2 {
   font-weight: 600;
   margin-bottom: 30px;
 }
-.table-hover tbody tr:hover{
+
+.table-hover tbody tr:hover {
   background-color: #c9b093;
 }
+
 h4 {
   font-size: 1.5em;
   line-height: 1.375em;
@@ -29,62 +33,71 @@ h4 {
   font-weight: 600;
   margin-bottom: 30px;
 }
-.navbar{
+
+.navbar {
   background-color: #80b866;
   font-weight: 600;
 }
+
 nav.sidebar.navbar {
   border-radius: 0px;
   border: 0px;
 }
+
 .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
-      font-size: 1.2em;
-  }
-  .nav>li.active a{
-      color:#c9b093 !important;
-      background-color: transparent !important;
-    }
+  color: #fff !important;
+  font-size: 1.2em;
+}
+
+.nav>li.active a {
+  color: #c9b093 !important;
+  background-color: transparent !important;
+}
+
 nav.sidebar, .main {
   -webkit-transition: margin 200ms ease-out;
   -moz-transition: margin 200ms ease-out;
   -o-transition: margin 200ms ease-out;
   transition: margin 200ms ease-out;
 }
+
 .main {
   padding: 10px 10px 0 10px;
 }
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 @media (min-width: 768px) {
-  .main{
+  .main {
     position: absolute;
     width: calc(100% - 40px);
     margin-left: 40px;
     float: right;
   }
-  nav.sidebar:hover + .main{
+  nav.sidebar:hover+.main {
     margin-left: 200px;
   }
   nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
     margin-left: 0px;
   }
-  nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+  nav.sidebar .navbar-brand, nav.sidebar .navbar-header {
     text-align: center;
     width: 100%;
     margin-left: 0px;
   }
-
-  nav.sidebar a{
+  nav.sidebar a {
     padding-right: 13px;
   }
-
-  nav.sidebar .navbar-nav > li:first-child{
+  nav.sidebar .navbar-nav>li:first-child {
     border-top: 1px #ffff solid;
   }
-
-  nav.sidebar .navbar-nav > li{
+  nav.sidebar .navbar-nav>li {
     border-bottom: 1px #ffff solid;
   }
-
   nav.sidebar .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -95,12 +108,10 @@ nav.sidebar, .main {
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-
-  nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+  nav.sidebar .navbar-collapse, nav.sidebar .container-fluid {
     padding: 0 0px 0 0px;
   }
-
-  nav.sidebar{
+  nav.sidebar {
     width: 200px;
     height: 100%;
     margin-left: -160px;
@@ -108,39 +119,42 @@ nav.sidebar, .main {
     z-index: 8000;
     margin-bottom: 0px;
   }
-  .main{
+  .main {
     padding: 50px 100px 50px 100px;
   }
   nav.sidebar li {
     width: 100%;
   }
-
-  nav.sidebar:hover{
+  nav.sidebar:hover {
     margin-left: 0px;
   }
-  .forAnimate{
+  .forAnimate {
     opacity: 0;
   }
 }
-.btn{
-  margin:5px;
-}
 
 @media (min-width: 1330px) {
-
-  .main{
+  .main {
     width: calc(100% - 200px);
     margin-left: 200px;
   }
-
-  nav.sidebar{
+  #myChart{
+    width:800;
+    height:450;
+  }
+  td input[type="number"] {
+    float: center;
+    margin: 0 auto;
+    width: 50%;
+  }
+  nav.sidebar {
     margin-left: 0px;
     float: left;
   }
-  nav.sidebar .forAnimate{
+  nav.sidebar .forAnimate {
     opacity: 1;
   }
-  .navbar-brand{
+  .navbar-brand {
     font-size: 1.5em !important;
     font-weight: 600;
     line-height: 1.42857143 !important;
@@ -150,20 +164,23 @@ nav.sidebar, .main {
   }
 }
 
-nav.sidebar .navbar-nav .open .dropdown-toggle{
+nav.sidebar .navbar-nav .open .dropdown-toggle {
   background-color: #76934b !important;
 }
-nav.sidebar .navbar-nav .open .dropdown-menu>li>a{
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a {
   color: #ffff !important;
 }
+
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
   color: #c9b093 !important;
   background-color: transparent;
 }
 
-nav:hover .forAnimate{
+nav:hover .forAnimate {
   opacity: 1;
 }
-section{
+
+section {
   padding-left: 15px;
 }
