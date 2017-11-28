@@ -10,7 +10,7 @@ var Order = mongoose.model('Order',{
     required: true
   },
   orderingfooddate:{
-    type: String,
+    type: Date,
     required: true
   },
   count:{

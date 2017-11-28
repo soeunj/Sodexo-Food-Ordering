@@ -7,7 +7,7 @@ var {
 var {
   Order
 } = require('./models/order');
-
+var menufunc = require('./menufunction');
 exports.submitOrder = function() {
   OrderList.find({}, function(err, orderlist) {
     if (err) throw err;
@@ -34,9 +34,13 @@ exports.submitOrder = function() {
 
 exports.addMenuToOrderList = function(clickmenu) {
   var menu = clickmenu['id'].toString().split('_')[0];
+  console.log('------');
+  var day = clickmenu['id'].toString().split('_')[1];
+  var add_date = menufunc.thisDate(day);
+  console.log(add_date);
   OrderList.findOneAndUpdate({
-    menu: clickmenu['id'].toString().split('_')[0],
-    date: clickmenu['id'].toString().split('_')[1].slice(0, 15)
+    menu: menu,
+    date: add_date
   }, {
     $inc: {
       count: +1
@@ -46,8 +50,8 @@ exports.addMenuToOrderList = function(clickmenu) {
   }).then((result) => {
     if (!result) {
       var newOrderList = new OrderList({
-        date: clickmenu['id'].toString().split('_')[1].slice(0, 15),
-        menu: clickmenu['id'].toString().split('_')[0],
+        date: add_date,
+        menu: menu,
         count: 1
       });
       newOrderList.save().then((doc) => {

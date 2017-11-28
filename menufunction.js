@@ -41,13 +41,13 @@ exports.date_to_string = function(date) {
   return date;
 }
 exports.thisDate = function(clickday){
+  console.log(clickday);
   if(clickday == "today"){
     return new Date();
   }
   var today_day = new Date().getDay();
   var day_difference = day_number[clickday] - today_day;
   var _today = new Date(year, month, day);
-  console.log(_today.getTime());
   var _clickday = new Date(_today.getTime()+(day_difference*1000*60*60*24));
   console.log(_clickday);
   return _clickday;

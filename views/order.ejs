@@ -26,7 +26,14 @@
               </ul>
             </li>
             <li class="active"><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
-            <li><a href="/statistic">STATISTIC<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a></li>
+            <li class="dropdown">
+              <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/statistic">TODAY</a></li>
+                <li><a href="/statistic/week">WEEKLY</a></li>
+                <li><a href="/statistic/month">MONTHLY</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
     </div>
@@ -49,7 +56,7 @@
         <% for(var i=0; i<orderlist.length; i++) {%>
           <tr id="<%=orderlist[i]['_id']%>">
             <td class="col-xs-3 text-center">
-              <%=orderlist[i]['date']%>
+              <%=orderlist[i]['date'].toString().slice(0,15)%>
             </td>
             <td class="col-xs-6 text-center">
               <%=orderlist[i]['menu']%>
@@ -71,7 +78,7 @@
   </div>
   <script type="text/javascript">
     var data = <%-JSON.stringify(orderlist)%>;
-    console.log(data.length);
+
     if (data.length == 0) {
       $('#order').prop('disabled', true);
     }

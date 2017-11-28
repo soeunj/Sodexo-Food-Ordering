@@ -11,6 +11,11 @@ function submitAll() {
 function confirm_count(id){
   var count_id = id.split('_')[0]+'_count';
   var value_c = document.getElementById(count_id).value;
+  if(value_c <= 0){
+    alert("Sorry. The count of the meal should be more than 1.");
+    document.getElementById(count_id).value = 1;
+    return 0;
+  }
   var data={
     id:id.split('_')[0],
     count:value_c

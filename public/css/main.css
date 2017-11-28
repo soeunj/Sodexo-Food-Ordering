@@ -139,8 +139,8 @@ canvas {
     margin-left: 200px;
   }
   #myChart{
-    width:800;
-    height:450;
+    width:200;
+    height: 50%;
   }
   td input[type="number"] {
     float: center;

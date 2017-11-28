@@ -38,15 +38,13 @@ app.get('/menu', (req, res) => {
 });
 app.get('/menu/:id', (req, res) => {
   var id = req.params.id;
-  console.log(id);
   var dayofmenu = menufunc.clickDayOfMenu(id);
   var date = menufunc.thisDate(id);
-  console.log(date);
   fetch_menu.fetch_menu(id).then(menus => {
       res.render('menu.ejs', {
         menus: menus,
         dayofmenu: dayofmenu,
-        date: date
+        date: id
       });
   }).catch(err => {
       console.log('Got error from fetch_menu', err);
@@ -62,17 +60,57 @@ app.get('/order', (req, res) => {
 });
 app.get('/statistic', (req, res) => {
   let date = menufunc.today_chart();
+
   Order.aggregate([
     { $match: {orderingfooddate: date } },
     { $group: { _id: '$menu', count: { $sum: '$count'  } } }
   ], function(err, result) {
     if (err) throw err;
+    console.log(result);
     res.render('statistic.ejs', {
       orderdata: result
     });
   });
 });
-
+app.get('/statistic/day', (req, res) => {
+  console.log(today_date);
+  Order.aggregate([
+    { $match: {orderingfooddate: date } },
+    { $group: { _id: '$menu', count: { $sum: '$count'  } } }
+  ], function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.render('statistic.ejs', {
+      orderdata: result
+    });
+  });
+});
+app.get('/statistic/week', (req, res) => {
+  let date = menufunc.today_chart();
+  Order.aggregate([
+    { $match: {orderingfooddate: date } },
+    { $group: { _id: '$menu', count: { $sum: '$count'  } } }
+  ], function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.render('statistic.ejs', {
+      orderdata: result
+    });
+  });
+});
+app.get('/statistic/month', (req, res) => {
+  let date = menufunc.today_chart();
+  Order.aggregate([
+    { $match: {orderingfooddate: date } },
+    { $group: { _id: '$menu', count: { $sum: '$count'  } } }
+  ], function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.render('statistic.ejs', {
+      orderdata: result
+    });
+  });
+});
 app.post('/menu', (req, res) => {
   func.addMenuToOrderList(req.body);
   res.send(req.body);

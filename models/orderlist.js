@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var OrderList = mongoose.model('OrderList',{
   date:{
-    type: String,
+    type: Date,
   },
   menu:{
     type: String,
