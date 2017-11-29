@@ -31,8 +31,7 @@
               <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/statistic">TODAY</a></li>
-                <li><a href="/statistic/week">WEEKLY</a></li>
-                <li><a href="/statistic/month">MONTHLY</a></li>
+                <li><a href="/statistic/thismonth">OTHER</a></li>
               </ul>
             </li>
           </ul>
@@ -49,89 +48,7 @@
   </div>
   <script>
   var orderdata = <%- JSON.stringify(orderdata) %>;
-  let _labels_index = {
-    'Kotiruoka 1.': 0,
-    'Kotiruoka 2.': 1,
-    'Kasvisruoka': 2,
-    'Kasviskeitto': 3,
-    'Leipälounas': 4,
-    'Erikoislounas': 5,
-    'Jälkiruoka': 6
-  };
-  let _data = [0, 0, 0, 0, 0, 0, 0];
-  for (let i = 0; i < orderdata.length; i++) {
-    var index_label = _labels_index[orderdata[i]['_id']];
-    _data[index_label] = orderdata[i]['count'];
-  }
-  //draw_chart('bar',_data);
-
-      var config = {
-          type: 'doughnut',
-          data: {
-              datasets: [{
-                  data:
-                    _data,
-                  backgroundColor: ["#4F5C2F", "#89A04F", "#B2C485", "#CADBAB", "#AAB683", "#909779", "#737764"],
-                  label: 'Dataset 1'
-              }],
-              labels: ['Kotiruoka 1.', 'Kotiruoka 2.', 'Kasvisruoka', 'Kasviskeitto', 'Leipälounas', 'Leipälounas', 'Jälkiruoka']
-          },
-          options: {
-              responsive: true,
-              legend: {
-                  position: 'top',
-              },
-              animation: {
-                  animateScale: true,
-                  animateRotate: true
-              }
-          }
-      };
-      window.onload = function() {
-          var ctx = document.getElementById("myChart").getContext("2d");
-          window.myDoughnut = new Chart(ctx, config);
-      };
-
-    /*var orderdata = <%- JSON.stringify(orderdata) %>;
-    let _labels_index = {
-      'Kotiruoka 1.': 0,
-      'Kotiruoka 2.': 1,
-      'Kasvisruoka': 2,
-      'Kasviskeitto': 3,
-      'Leipälounas': 4,
-      'Erikoislounas': 5,
-      'Jälkiruoka': 6
-    };
-    let _data = [0, 0, 0, 0, 0, 0, 0];
-    for (let i = 0; i < orderdata.length; i++) {
-      var index_label = _labels_index[orderdata[i]['_id']];
-      _data[index_label] = orderdata[i]['count'];
-    }
-    var chartData = {
-      labels:['Kotiruoka 1.', 'Kotiruoka 2.', 'Kasvisruoka', 'Kasviskeitto', 'Leipälounas', 'Leipälounas', 'Jälkiruoka'],
-      datasets:[{
-        label: "The number of the meal order",
-        backgroundColor: ["#4F5C2F", "#89A04F", "#B2C485", "#CADBAB", "#AAB683", "#909779", "#737764"],
-        data: _data
-      }]
-    };
-    window.onload = function(){
-      var ctx = document.getElementById("myChart").getContext("2d");
-      window.myChart = new Chart(ctx, {
-        type:'bar',
-        data: chartData,
-        options: {
-          responsive: true,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-    };*/
+  today_draw_chart(orderdata);
   </script>
 </body>
 

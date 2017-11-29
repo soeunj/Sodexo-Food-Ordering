@@ -20,8 +20,11 @@ h2 {
   color: #757474;
   font-weight: 600;
   margin-bottom: 30px;
+  text-align: center;
 }
-
+p {
+  text-align: center;
+}
 .table-hover tbody tr:hover {
   background-color: #c9b093;
 }
@@ -38,7 +41,10 @@ h4 {
   background-color: #80b866;
   font-weight: 600;
 }
-
+.btn-success{
+  background-color: #76934b;
+  border-color: #76934b;
+}
 nav.sidebar.navbar {
   border-radius: 0px;
   border: 0px;
@@ -139,8 +145,7 @@ canvas {
     margin-left: 200px;
   }
   #myChart{
-    width:200;
-    height: 50%;
+    position: relative;
   }
   td input[type="number"] {
     float: center;

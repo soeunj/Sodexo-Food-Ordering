@@ -1,16 +1,15 @@
-var {
-  mongoose
-} = require('./db/database');
-var {
-  Order
-} = require('./models/order');
-
-Order.find({}, function(err, orderlist) {
-  if (err) throw err;
-  //console.log(orderlist);
-  for(let i=0; i<orderlist.length; i++){
-    if(orderlist[i]['orderingfooddate'].includes("Nov")){
-    console.log(orderlist[i]['orderingfooddate']);
-    }
-  }
-});
+var currentWeekNumber = require('current-week-number');
+var moment = require('moment');
+let startOfWeek, endOfWeek;
+var today = moment('2017-01-15').toDate();
+console.log(today);
+startOfWeek = moment().startOf('month').add(1,'days').toDate();
+endOfWeek   = moment(today).endOf('week').toDate();
+console.log(startOfWeek);
+console.log(endOfWeek);
+console.log(currentWeekNumber(startOfWeek));
+console.log(currentWeekNumber(endOfWeek));
+console.log(moment(endOfWeek).subtract(6, 'days').toDate());
+console.log(moment(startOfWeek).subtract(6, 'days').toDate());
+console.log(currentWeekNumber(moment(endOfWeek).subtract(6, 'days').toDate()));
+console.log(currentWeekNumber(moment(startOfWeek).subtract(6, 'days').toDate()));

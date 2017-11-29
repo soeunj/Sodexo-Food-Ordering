@@ -3,9 +3,9 @@
 
 <head>
   <%- include header.ejs %>
-  <script type = "text/javascript" src="../../js/menu.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script type="text/javascript" src="../../js/stat1.js"></script>
 </head>
-
 <body>
   <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
         <div id="tab" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">HOME<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-home"></span></a></li>
-            <li class="active dropdown">
+            <li class="dropdown">
               <a href="/menu" class="dropdown-toggle" data-toggle="dropdown">MENU<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-cutlery"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/menu">TODAY</a></li>
@@ -36,57 +36,34 @@
         </div>
     </div>
   </nav>
-  <div class="main container-fluid text-center">
-    <h2><%=dayofmenu%></h2>
-    <p>You can order meals.</br>Click menu which you want to order.</p>
-    </br>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th class="col-xs-3 text-center">Menu</th>
-          <th class="col-xs-6 text-center">Description</th>
-          <th class="col-xs-3 text-center">Price</th>
-        </tr>
-      </thead>
-      <tbody id="menu">
-        <% for(var i=0; i<menus.length; i++) {%>
-          <tr id="<%=menus[i]['category']%>_<%=date%>" onclick="clickmenu(this.id)">
-            <td id="menu_category" class="col-xs-3 text-center">
 
-              <%=menus[i]['category'] %>
-            </td>
-            <td class="col-xs-6 text-left">
-              <%=menus[i]['title_fi']%>
-                <%=menus[i]['desc_fi']%><br>
-                  <%=menus[i]['title_en']%>
-                    <%=menus[i]['desc_en']%>
-            </td>
-            <td class="col-xs-3 text-center">
-              <%=menus[i]['price']%>
-            </td>
-          </tr>
-          <% } %>
-      </tbody>
-    </table>
+  <div class="main container-fluid">
+    <h2>STATISTIC</h2>
+    <p>This graph is blahblah.</p>
+    <div class="dropdown">
+      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Month<span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+        <li><a href="/statistic/jan">January</a></li>
+        <li><a href="/statistic/feb">February</a></li>
+        <li><a href="/statistic/mar">March</a></li>
+        <li><a href="/statistic/apr">April</a></li>
+        <li><a href="/statistic/may">May</a></li>
+        <li><a href="/statistic/jun">June</a></li>
+        <li><a href="/statistic/jul">July</a></li>
+        <li><a href="/statistic/aug">August</a></li>
+        <li><a href="/statistic/sep">September</a></li>
+        <li><a href="/statistic/oct">October</a></li>
+        <li><a href="/statistic/nov">November</a></li>
+        <li><a href="/statistic/dec">December</a></li>
+      </ul>
+    </div>
+    <canvas id="myChart" width="800" height="450"></canvas>
+
   </div>
-  <script type="text/javascript">
-  var today_day = new Date().getDay();
-    var now_hour = new Date().getHours();
-    var day_num = {
-      "MONDAY MENU": 1,
-      "TUESDAY MENU": 2,
-      "WEDNESDAY MENU": 3,
-      "THURSDAY MENU": 4,
-      "FRIDAY MENU": 5
-    };
-    var clickday = "<%=dayofmenu%>";
-    $(".nav>li").each(function() {
-      var navItem = $(this);
-      if (navItem.find("a").attr("href") == location.pathname) {
-        navItem.addClass("active");
-      }
-    });
-
+  <script>
+    var orderdata = <%- JSON.stringify(orderdata) %>;
+    console.log(orderdata);
+    eachday_draw_chart(orderdata, <%=month%>, <%=year%>);
   </script>
 </body>
 

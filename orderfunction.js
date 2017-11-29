@@ -12,7 +12,6 @@ exports.submitOrder = function() {
   OrderList.find({}, function(err, orderlist) {
     if (err) throw err;
     for (let i = 0; i < orderlist.length; i++) {
-      console.log(orderlist[i]['count']);
       var newOrder = new Order({
         menu: orderlist[i]['menu'],
         date: new Date,
@@ -34,10 +33,8 @@ exports.submitOrder = function() {
 
 exports.addMenuToOrderList = function(clickmenu) {
   var menu = clickmenu['id'].toString().split('_')[0];
-  console.log('------');
   var day = clickmenu['id'].toString().split('_')[1];
   var add_date = menufunc.thisDate(day);
-  console.log(add_date);
   OrderList.findOneAndUpdate({
     menu: menu,
     date: add_date
