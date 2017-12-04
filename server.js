@@ -1,6 +1,13 @@
 const express = require('express');
 const hbs = require('hbs');
+const http = require('http');
 const bodyParser = require('body-parser');
+const app = express();
+const io = require('socekt.io')(app);
+
+io.on('connection', function(){
+  console.log("just great");
+});
 
 var {
   mongoose
@@ -26,8 +33,6 @@ app.get('/', (req, res) => {
 });
 app.get('/menu', (req, res) => {
   fetch_menu.fetch_menu("today").then(menus => {
-    //  var date = menufunc.thisDate("today");
-    //  console.log(date);
     res.render('menu.ejs', {
       menus: menus,
       dayofmenu: 'TODAY MENU',
@@ -40,8 +45,6 @@ app.get('/menu', (req, res) => {
 app.get('/menu/:id', (req, res) => {
   var id = req.params.id;
   var dayofmenu = menufunc.clickDayOfMenu(id);
-  //  var date = menufunc.thisDate(id);
-  //  console.log(date);
   fetch_menu.fetch_menu(id).then(menus => {
     res.render('menu.ejs', {
       menus: menus,

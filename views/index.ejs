@@ -3,6 +3,7 @@
 
 <head>
   <%- include header.ejs %>
+  <script type="text/javascript" src="../js/index.js"></script>
 </head>
 
 <body>
@@ -10,41 +11,174 @@
     <div class="container-fluid">
       <%- include small_device_nav.ejs %>
       <div id="tab" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/">HOME<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-home"></span></a></li>
-          <li class="dropdown">
-            <a href="/menu" class="dropdown-toggle" data-toggle="dropdown">MENU<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-cutlery"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/menu">TODAY</a></li>
-              <li><a href="/menu/mon">MONDAY</a></li>
-              <li><a href="/menu/tue">TUESDAY</a></li>
-              <li><a href="/menu/wed">WEDNESDAY</a></li>
-              <li><a href="/menu/thu">THURSDAY</a></li>
-              <li><a href="/menu/fri">FRIDAY</a></li>
-            </ul>
-          </li>
-          <li><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
-          <li class="dropdown">
-            <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/statistic">TODAY</a></li>
-              <li><a href="/statistic/thismonth">OTHER</a></li>
-            </ul>
-          </li>
-        </ul>
       </div>
     </div>
   </nav>
 
-  <div class="main container-fluid text-center">
-    <h2>Welcome</h2>
-    <p>This application is food ordering system to reduce food losses.</p>
+  <div id = "main" class="main container-fluid text-center">
 
-    <p>You can order lunch.</p>
-    <a href="http://www.sodexo.fi/leiritie" class="button">Go to Sodexo Homepage</a>
   </div>
-  <script type="text/javascript">
+  <script>
+  var today_day = new Date().getDay();
+  var now_hour = new Date().getHours();
+  var day_num = {
+    "mon": 1,
+    "tue": 2,
+    "wed": 3,
+    "thu": 4,
+    "fri": 5
+  };
 
+  var data = <%-JSON.stringify(data)%>;
+  var type = "<%=type%>";
+  console.log(data);
+  window.onload = function() {
+    if (type == "index"){
+      loadindex();
+    }
+    else if (type == "menu") {
+      loadmenu();
+    } else if (type == "order") {
+      let orderdata = [];
+      for(let i=0; i<data.length; i++){
+        orderdata.push(JSON.parse(data[i]));
+      }
+      loadorder(orderdata);
+    }
+    else if(type == "stat"){
+      loadstat(data);
+    }
+    else if(type == "stat1"){
+      let mon = "<%=month%>", ye = "<%=year%>";
+      loadstat1(data,mon , ye);
+        $("#main").removeClass("text-center");
+    }
+  }
+  if (type == "order" && data.length == 0) {
+    $('#order').prop('disabled', true);
+
+  }
+  if (type == "order" && data.length > 7) {
+    console.log("quit");
+
+  }
+function loadindex(){
+  var ht = "";
+  ht += "<ul class='nav navbar-nav'>";
+  ht += "<li class='active'><a href='/'>HOME<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-home'></span></a></li>";
+  ht += "<li class='dropdown'>";
+  ht += "<a href='/menu' class='dropdown-toggle' data-toggle='dropdown'>MENU<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-cutlery'></span></a>";
+  ht += "<ul class='dropdown-menu' role='menu'>";
+  ht += "<li><a href='/menu'>TODAY</a></li>";
+  ht += "<li><a href='/menu/mon'>MONDAY</a></li>";
+  ht += "<li><a href='/menu/tue'>TUESDAY</a></li>";
+  ht += "<li><a href='/menu/wed'>WEDNESDAY</a></li>";
+  ht += "<li><a href='/menu/thu'>THURSDAY</a></li>";
+  ht += "<li><a href='/menu/fri'>FRIDAY</a></li>";
+  ht += "</ul></li>";
+  ht += "<li><a href='/order'>ORDER<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-shopping-cart'></span></a></li>";
+  ht += "<li class='dropdown'>";
+  ht += "<a href='/statistic' class='dropdown-toggle' data-toggle='dropdown'>STATISTIC<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-stats'></span></a>";
+  ht += "<ul class='dropdown-menu' role='menu'>";
+  ht += "<li><a href='/statistic'>TODAY</a></li><li><a href='/statistic/thismonth'>OTHER</a></li>";
+  ht += "</ul></li></ul>";
+  $('#tab').append(ht);
+
+  var htm = "";
+  htm += "<h2>Welcome</h2><p>This application is food ordering system to reduce food losses.</p><p>You can order lunch.</p>";
+  htm += "<a href='http://www.sodexo.fi/leiritie' class='button'>Go to Sodexo Homepage</a>";
+  $('#main').append(htm);
+}
+  function loadmenu() {
+
+    var html = "";
+    html += "<ul class='nav navbar-nav'>";
+    html += "<li><a href='/'>HOME<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-home'></span></a></li>";
+    html += "<li class='active dropdown'>";
+    html += "<a href='/menu' class='dropdown-toggle' data-toggle='dropdown'>MENU<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-cutlery'></span></a>";
+    html += "<ul class='dropdown-menu' role='menu'>";
+    html += "<li><a href='/menu'>TODAY</a></li>";
+    html += "<li><a href='/menu/mon'>MONDAY</a></li>";
+    html += "<li><a href='/menu/tue'>TUESDAY</a></li>";
+    html += "<li><a href='/menu/wed'>WEDNESDAY</a></li>";
+    html += "<li><a href='/menu/thu'>THURSDAY</a></li>";
+    html += "<li><a href='/menu/fri'>FRIDAY</a></li>";
+    html += "</ul></li>";
+    html += "<li><a href='/order'>ORDER<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-shopping-cart'></span></a></li>";
+    html += "<li class='dropdown'>";
+    html += "<a href='/statistic' class='dropdown-toggle' data-toggle='dropdown'>STATISTIC<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-stats'></span></a>";
+    html += "<ul class='dropdown-menu' role='menu'>";
+    html += "<li><a href='/statistic'>TODAY</a></li><li><a href='/statistic/thismonth'>OTHER</a></li>";
+    html += "</ul></li></ul>";
+    $('#tab').append(html);
+    var html1 = "";
+    html1 += "<h2><%=dayofmenu%></h2><p>You can order meals.</br>Click menu which you want to order.</p></br>";
+    html1 += "<table class='table table-hover'>";
+    html1 += "<thead><tr><th class='col-xs-3 text-center'>Menu</th><th class='col-xs-6 text-center'>Description</th><th class='col-xs-3 text-center'>Price</th></tr></thead>";
+    html1 += "<tbody id='menu'>";
+    html1 += "<% for(var i=0; i<data.length; i++) {%>";
+    html1 += "<tr id='<%=data[i]['category']%>_<%=date%>' onclick='clickmenu(this.id)'>";
+    html1 += "<td id='menu_category' class='col-xs-3 text-center'>";
+    html1 += "<%=data[i]['category'] %>";
+    html1 += "</td>";
+    html1 += "<td class='col-xs-6 text-left'>";
+    html1 += "<%=data[i]['title_fi']%>";
+    html1 += "<%=data[i]['desc_fi']%></br>";
+    html1 += "<%=data[i]['title_en']%>";
+    html1 += "</td>";
+    html1 += "<td class='col-xs-3 text-center'>";
+    html1 += "<%=data[i]['price']%></td></tr>";
+    html1 += "<% } %>";
+    html1 += "</tbody></table>";
+    $('#main').append(html1);
+  }
+
+  function loadorder(orderdata) {
+    let html2 = "";
+    html2 += "<ul class='nav navbar-nav'>";
+    html2 += "<li><a href='/'>HOME<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-home'></span></a></li>";
+    html2 += "<li class='dropdown'>";
+    html2 += "<a href='/menu' class='dropdown-toggle' data-toggle='dropdown'>MENU<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-cutlery'></span></a>";
+    html2 += "<ul class='dropdown-menu' role='menu'>";
+    html2 += "<li><a href='/menu'>TODAY</a></li>";
+    html2 += "<li><a href='/menu/mon'>MONDAY</a></li>";
+    html2 += "<li><a href='/menu/tue'>TUESDAY</a></li>";
+    html2 += "<li><a href='/menu/wed'>WEDNESDAY</a></li>";
+    html2 += "<li><a href='/menu/thu'>THURSDAY</a></li>";
+    html2 += "<li><a href='/menu/fri'>FRIDAY</a></li>";
+    html2 += "</ul></li>";
+    html2 += "<li class='active'><a href='/order'>ORDER<span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-shopping-cart'></span></a></li>";
+    html2 += "<li class='dropdown'>";
+    html2 += "<a href='/statistic' class='dropdown-toggle' data-toggle='dropdown'>STATISTIC<span class='caret'></span><span style='font-size:16px;' class='pull-right hidden-xs glyphicon glyphicon-stats'></span></a>";
+    html2 += "<ul class='dropdown-menu' role='menu'>";
+    html2 += "<li><a href='/statistic'>TODAY</a></li><li><a href='/statistic/thismonth'>OTHER</a></li>";
+    html2 += "</ul></li></ul>";
+    $('#tab').append(html2);
+    let html3 = "";
+    html3 += "<h2>ORDER LIST</h2><p>This is your order list.</br>If you want to confirm your order, click order button.</p></br>";
+    html3 += "<table class='table'>";
+    html3 += "<thead>";
+    html3 +="<tr><th class='col-xs-3 text-center'>Date</th><th class='col-xs-6 text-center'>Menu</th><th class='col-xs-3 text-center'>Count</th><th class='col-xs-3 text-center'>Count Confirm</th><th class='col-xs-3 text-center'>Delete</th></tr></thead>";
+    html3 += "<tbody id='orderlist'>";
+    for(var i=0; i<orderdata.length; i++){
+    html3 += "<tr>";
+    html3 += "<td id='orderdate' class='col-xs-3 text-center'>";
+    html3 += orderdata[i]['date'].toString().slice(0,10)+"</td>";
+    html3 += "<td class='col-xs-6 text-center'>";
+    html3 += orderdata[i]['menu']+"</td>";
+    html3 += "<td class='col-xs-3 text-center'>";
+    html3 += "<input type='number' id='"+orderdata[i]['menu']+"_count' value='"+orderdata[i]['count']+"' class='form-control'></td>";
+    html3 += "<td class='col-xs-3 text-center'>";
+    html3 += "<button id='"+orderdata[i]['menu']+"_countsubmit' class='btn btn-default' onclick='confirm_count(this.id)'>";
+    html3 += "<i class='glyphicon glyphicon-ok'></i></button></td>";
+    html3 += "<td class='col-xs-3 text-center'>";
+    html3 += "<button id='delete"+i+"' class='btn btn-default' onclick='delete_order(this.id)'>";
+    html3 += "<i class='glyphicon glyphicon-remove'></i></button></td></tr>";
+    }
+    html3 += "</tbody></table>";
+    html3 += "<button id='order' class='btn btn-success pull-right' onclick='submitOrder();submitAll()'>Order</button>";
+    $('#main').append(html3);
+  }
   </script>
 </body>
 

@@ -2,37 +2,33 @@
 <html lang="en">
 
 <head>
-  <%- include header.ejs %>
+  <title>Food Ordering System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script type="text/javascript" src="../../js/stat1.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-inverse sidebar" role="navigation">
     <div class="container-fluid">
-      <%- include small_device_nav.ejs %>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#tab">
+          <span class="sr-only"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Food Order System</a>
+      </div>
         <div id="tab" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">HOME<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-home"></span></a></li>
-            <li class="dropdown">
-              <a href="/menu" class="dropdown-toggle" data-toggle="dropdown">MENU<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-cutlery"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="/menu">TODAY</a></li>
-                <li><a href="/menu/mon">MONDAY</a></li>
-                <li><a href="/menu/tue">TUESDAY</a></li>
-                <li><a href="/menu/wed">WEDNESDAY</a></li>
-                <li><a href="/menu/thu">THURSDAY</a></li>
-                <li><a href="/menu/fri">FRIDAY</a></li>
-              </ul>
-            </li>
-            <li><a href="/order">ORDER<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-shopping-cart"></span></a></li>
-            <li class="dropdown">
-              <a href="/statistic" class="dropdown-toggle" data-toggle="dropdown">STATISTIC<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-stats"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="/statistic">TODAY</a></li>
-                <li><a href="/statistic/thismonth">OTHER</a></li>
-              </ul>
-            </li>
-          </ul>
+
         </div>
     </div>
   </nav>

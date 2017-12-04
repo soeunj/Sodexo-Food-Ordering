@@ -1,8 +1,11 @@
+
 function clickmenu(id) {
   var data = {
     "id": id
   };
-  if ((day_num[clickday] > today_day) || (clickday == "TODAY MENU")) {
+  let clickday = id.toString().split('_')[1];
+  console.log(clickday);
+  if ((day_num[clickday] > today_day) || (clickday== "today")) {
     sendOrderData(data);
   } else if (day_num[clickday] == today_day) {
     if (now_hour < 14) {

@@ -31,6 +31,7 @@ exports.submitOrder = function() {
   });
 }
 
+
 exports.addMenuToOrderList = function(clickmenu) {
   var menu = clickmenu['id'].toString().split('_')[0];
   var day = clickmenu['id'].toString().split('_')[1];
