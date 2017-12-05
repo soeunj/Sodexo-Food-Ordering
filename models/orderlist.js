@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 
 var OrderList = mongoose.model('OrderList',{
+  session:{
+    type:String,
+  },
   date:{
     type: Date,
   },

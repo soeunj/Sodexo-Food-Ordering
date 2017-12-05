@@ -5,13 +5,13 @@ var {
 var {
   Order
 } = require('../models/order');
-var menufunc = require('../menufunction');
+const date = require('../date');
 
 exports.todayStatistic = function(req, res, next) {
-  let date = menufunc.thisDate("today");
+  let _date = date.thisDate("today");
   Order.aggregate([{
       $match: {
-        orderingfooddate: date
+        orderingfooddate: _date
       }
     },
     {
@@ -24,7 +24,6 @@ exports.todayStatistic = function(req, res, next) {
     }
   ], function(err, result) {
     if (err) throw err;
-    console.log(result);
     res.render('index.ejs', {
       data: result,
       month: "",
@@ -38,8 +37,8 @@ exports.todayStatistic = function(req, res, next) {
 exports.otherStatistic = function(req, res, next) {
   let id = req.params.id;
   let startOfMonth, endOfMonth, month, year;
-  startOfMonth = menufunc.thisMonthStartDay(id);
-  endOfMonth = menufunc.thisMonthEndDay(id);
+  startOfMonth = date.thisMonthStartDay(id);
+  endOfMonth = date.thisMonthEndDay(id);
   month = startOfMonth.getMonth();
   year = startOfMonth.getFullYear();
   Order.aggregate([{
@@ -60,7 +59,6 @@ exports.otherStatistic = function(req, res, next) {
     }
   ], function(err, result) {
     if (err) throw err;
-    console.log(result);
     res.render('index.ejs', {
       data: result,
       month: month,

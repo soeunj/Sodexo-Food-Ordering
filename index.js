@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const router = require('./router');
 const mongoose = require('mongoose');
 const session = require('express-session');
+var MongoStore  = require('connect-mongo')(session);
 const app = express();
 
 // default to a 'localhost' configuration:
@@ -17,32 +18,15 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'test session',
-    resave: false,
-    saveUninitialized: true,
-    cookie:{
-      sessdata:JSON
-    }
+  secret  : 'secret',
+  autoRemove: 'native',
+  store   : new MongoStore({mongooseConnection: mongoose.connection })
 }));
-//app.use(session({
-//  secret: 'keyboard cat',
-// resave: false,
-// saveUninitialized: true
-//}));
 app.use(function (req, res, next) {
-console.log(req.sessionID);
-exports.sess = req.session;
-  //if (!req.session.views) {
-//    req.session.views = {};
-  //}
-
-  // get the url pathname
-  //var pathname = parseurl(req).pathname;
-
-  // count the views
-  //req.session.views[pathname] = (req.session.views[pathname] || 0) + 1;
-  //console.log(req.session.views);*/
-  next();
+  if (!req.session) {
+    return next(new Error('oh no')); // handle error
+  }
+  next(); // otherwise continue
 });
 router(app);
 
