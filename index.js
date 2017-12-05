@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const router = require('./router');
 const mongoose = require('mongoose');
 const session = require('express-session');
-var MongoStore  = require('connect-mongo')(session);
 const app = express();
 
 // default to a 'localhost' configuration:
@@ -19,8 +18,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(session({
   secret  : 'secret',
-  autoRemove: 'native',
-  store   : new MongoStore({mongooseConnection: mongoose.connection })
+  autoRemove: 'native'
 }));
 app.use(function (req, res, next) {
   if (!req.session) {

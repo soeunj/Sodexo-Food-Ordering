@@ -18,24 +18,16 @@
   "homepage": "https://github.com/soeunj/Sodexo-Food-Ordering#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "bower": "^1.8.2",
     "chart.js": "^2.7.1",
-    "connect-mongo": "^2.0.0",
-    "cookie-session": "^2.0.0-beta.3",
-    "cors": "^2.8.4",
-    "current-week-number": "^1.0.7",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "express-session-json": "0.0.8",
     "hbs": "^4.0.1",
     "moment": "^2.19.2",
     "mongodb": "^2.2.33",
     "mongoose": "^4.12.4",
-    "mongoose-session": "0.0.4",
+    "nodemon": "^1.12.4",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2",
-    "s": "^0.1.1",
-    "socket.io": "^2.0.4"
+    "request-promise": "^4.2.2"
   }
 }
