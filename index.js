@@ -16,6 +16,7 @@ mongoose.connect('mongodb://' + connection_string);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
+// Session setup
 app.use(session({
   secret  : 'secret',
   autoRemove: 'native'

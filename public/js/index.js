@@ -122,9 +122,13 @@ function today_draw_chart(orderdata) {
     'Jälkiruoka': 6
   };
   let _data = [0, 0, 0, 0, 0, 0, 0];
+  let _max = 0;
   for (let i = 0; i < orderdata.length; i++) {
     var index_label = _labels_index[orderdata[i]['_id']];
     _data[index_label] = orderdata[i]['count'];
+    if (orderdata[i]['count'] >= _max){
+      _max = orderdata[i]['count'];
+    }
   }
   let config = {
     type: 'horizontalBar',
@@ -139,6 +143,14 @@ function today_draw_chart(orderdata) {
       responsive: true,
       legend: {
         display:false
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            max : _max + 10
+          }
+        }]
       },
       animation: {
         animateScale: true,
@@ -179,6 +191,11 @@ function eachday_draw_chart(orderdata, month, year) {
         animateRotate: true
       },
       scales: {
+        yAxes: [{
+          ticks:{
+            beginAtZero: true
+          }
+        }],
         xAxes: [{
           ticks: {
             callback: function(value, index, values) {

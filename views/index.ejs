@@ -104,7 +104,7 @@
       var html1 = "";
       html1 += "<h2><%=dayofmenu%></h2><p>You can order meals.</br>Click menu which you want to order.</p></br>";
       html1 += "<table class='table table-hover'>";
-      html1 += "<thead><tr><th class='col-xs-3 text-center'>Menu</th><th class='col-xs-6 text-center'>Description</th><th class='col-xs-3 text-center'>Price</th></tr></thead>";
+      html1 += "<thead><tr><th class='col-xs-3 text-center'>Menu</th><th class='col-xs-6 text-center'>Description</th><th class='col-xs-3 text-center'>Price (€)</th></tr></thead>";
       html1 += "<tbody id='menu'>";
       html1 += "<% for(var i=0; i<data.length; i++) {%>";
       html1 += "<tr id='<%=data[i]['category']%>_<%=date%>' onclick='clickmenu(this.id)'>";
@@ -112,9 +112,11 @@
       html1 += "<%=data[i]['category'] %>";
       html1 += "</td>";
       html1 += "<td class='col-xs-6 text-left'>";
-      html1 += "<%=data[i]['title_fi']%>";
-      html1 += "<%=data[i]['desc_fi']%></br>";
-      html1 += "<%=data[i]['title_en']%>";
+      html1 += "<%=data[i]['title_fi']%></br>";
+      html1 += `<i><small><%= data[i]['desc_fi'] %></small></i>`;
+      html1 += "</br>";
+      html1 += "<%=data[i]['title_en']%></br>";
+      html1 += `<i><small><%= data[i]['desc_en'] %></small></i>`;
       html1 += "</td>";
       html1 += "<td class='col-xs-3 text-center'>";
       html1 += "<%=data[i]['price']%></td></tr>";
