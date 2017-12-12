@@ -50,9 +50,13 @@ function sendOrderData(data) {
   });
 }
 
-function submitOrder() {
-  if (confirm("Would you like to confirm your order?")) {
+function submitOrder(data) {
+  if(data.length == 0){
+    alert("Your order list is empty.\n Please add menus which you want to order.");
+  }
+  else if (confirm("Would you like to confirm your order?")) {
     alert("Success to order");
+    submitAll();
   }
 }
 

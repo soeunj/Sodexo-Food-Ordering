@@ -45,9 +45,7 @@
         loadstat1(data, mon, ye);
       }
     }
-    if (type == "order" && data.length == 0) {
-      $('#order').prop('disabled', true);
-    }
+  
     if (type == "order" && data.length > 7) {
       console.log("quit");
     }
@@ -150,8 +148,7 @@
       html3 += "<h2>ORDER LIST</h2><p>This is your order list.</br>If you want to confirm your order, click order button.</p></br>";
       html3 += "<table class='table'>";
       html3 += "<thead>";
-      html3 +=
-        "<tr><th class='col-xs-3 text-center'>Date</th><th class='col-xs-6 text-center'>Menu</th><th class='col-xs-3 text-center'>Count</th><th class='col-xs-3 text-center'>Count Confirm</th><th class='col-xs-3 text-center'>Delete</th></tr></thead>";
+      html3 += "<tr><th class='col-xs-3 text-center'>Date</th><th class='col-xs-6 text-center'>Menu</th><th class='col-xs-3 text-center'>Count</th><th class='col-xs-3 text-center'>Count Confirm</th><th class='col-xs-3 text-center'>Delete</th></tr></thead>";
       html3 += "<tbody id='orderlist'>";
       for (var i = 0; i < orderdata.length; i++) {
         html3 += "<tr>";
@@ -169,7 +166,7 @@
         html3 += "<i class='glyphicon glyphicon-remove'></i></button></td></tr>";
       }
       html3 += "</tbody></table>";
-      html3 += "<button id='order' class='btn btn-success pull-right' onclick='submitOrder();submitAll()'>Order</button>";
+      html3 += "<button id='order_button' class='btn btn-success pull-right' onclick='submitOrder(data)'>Order</button>";
       $('#main').append(html3);
     }
 
