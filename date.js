@@ -23,6 +23,9 @@ var month_number = {
   "nov": 11,
   "dec": 12
 };
+/*
+This function is to generate actual date from Monday, Tuesday, Wednesday, Thursday, and Friday.
+*/
 exports.thisDate = function(clickday) {
   var day_difference = 0;
   if (clickday != "today") {
@@ -33,6 +36,9 @@ exports.thisDate = function(clickday) {
   var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;
 }
+/*
+This function is to calculate current month's start day.
+*/
 exports.thisMonthStartDay = function(month) {
   let startOfMonth;
   if (month == "thismonth") {
@@ -42,6 +48,9 @@ exports.thisMonthStartDay = function(month) {
   }
   return startOfMonth;
 }
+/*
+This function is to calculate current month's end day.
+*/
 exports.thisMonthEndDay = function(month) {
   let endOfMonth;
   if (month == "thismonth") {

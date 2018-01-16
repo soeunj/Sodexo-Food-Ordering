@@ -31,7 +31,7 @@ router(app);
 
 // Server setup
 const port = 3000;
-const ip = '0.0.0.0';
+const ip = '0.0.0.0'; //change ip address
 const server = http.createServer(app);
 server.listen(port, ip);
 console.log("Listening on " + ip + ", port " + port);

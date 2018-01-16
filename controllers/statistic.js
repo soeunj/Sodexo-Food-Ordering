@@ -6,7 +6,10 @@ var {
   Order
 } = require('../models/order');
 const date = require('../date');
-
+/*
+This function is to show today's order data.
+It generates a graph which shows today's order data about each menus.
+*/
 exports.todayStatistic = function(req, res, next) {
   let _date = date.thisDate("today");
   Order.aggregate([{
@@ -34,6 +37,10 @@ exports.todayStatistic = function(req, res, next) {
     });
   });
 };
+/*
+This function is to show each day's order data.
+It generates a graph which shows each day's total order data.
+*/
 exports.otherStatistic = function(req, res, next) {
   let id = req.params.id;
   let startOfMonth, endOfMonth, month, year;

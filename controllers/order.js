@@ -8,6 +8,10 @@ var {
 var {
   Order
 } = require('../models/order');
+/*
+This function is to show order list on order page.
+It fetch the orderlist data using sessionID to identify the user.
+*/
 exports.orderList = function(req, res, next) {
   OrderList.find({session:req.sessionID},function(err, orderlist){
     if(err) throw err;
@@ -21,6 +25,11 @@ exports.orderList = function(req, res, next) {
     })
   });
 };
+/*
+This function is to confirm the number of the order menu.
+When a user wants to change and confirm the number of the order menu, a user clicks the confirm button next to the number of the order menu.
+And, it changes the number of the order menu in orderlist database.
+*/
 exports.confirmCount = function(req, res, next) {
   OrderList.update({_id:req.body['id']}, { $set: { count: req.body['count'] }}, function(err, updatedOrderlist){
     if(err) throw err;
@@ -38,6 +47,9 @@ exports.confirmCount = function(req, res, next) {
     });
   });
 };
+/*
+This function is to delete order menu in orderlist database.
+*/
 exports.deleteOrder = function(req, res, next) {
   var id = req.body['id'];
   OrderList.deleteOne({
@@ -57,6 +69,10 @@ exports.deleteOrder = function(req, res, next) {
     });
   });
 };
+/*
+This function is to submit the order.
+When a user wants to order menus, a user clikcs the sumbit button and it saves to order database.
+*/
 exports.submitOrder = function(req, res, next) {
   OrderList.find({session:req.sessionID}, function(err, orderlist) {
     if (err) throw err;

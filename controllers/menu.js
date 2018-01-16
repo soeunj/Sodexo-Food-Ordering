@@ -8,6 +8,9 @@ var {
   OrderList
 } = require('../models/orderlist');
 
+/*
+This function is to show today menu which is fetched from Sodexo page.
+*/
 exports.todayMenu = function(req, res, next) {
   fetch_menu.fetch_menu("today").then(menus => {
     res.render('index.ejs', {
@@ -37,6 +40,9 @@ function clickDayOfMenu(click) {
     return "TODAY MENU"
   }
 }
+/*
+This function is to show each day's menu except today.
+*/
 exports.eachdayMenu = function(req, res, next) {
   var id = req.params.id;
   var dayofmenu = clickDayOfMenu(id);
@@ -53,7 +59,12 @@ exports.eachdayMenu = function(req, res, next) {
     console.log('Got error from fetch_menu', err);
   });
 };
-
+/*
+This function is to send the menu which is clicked by a user.
+When a user wants to order a menu, he or she clicks the menu and it saves the menu associated with sessionID in orderlist database.
+This sessionID identifies each user because it doesn't have a login function.
+After that, the page is changed to order page.
+*/
 exports.menuToOrderList = function(req, res, next) {
   let clickmenu = req.body;
   let menu = clickmenu['id'].toString().split('_')[0];
