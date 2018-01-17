@@ -91,6 +91,7 @@ exports.menuToOrderList = function(req, res, next) {
         console.log('=========to orderlist==========');
         console.log(JSON.stringify(doc, undefined, 2));
       }, (e) => {
+        console.log(e);
         console.log('Unable to save menu');
       });
     }

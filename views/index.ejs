@@ -45,7 +45,7 @@
         loadstat1(data, mon, ye);
       }
     }
-  
+
     if (type == "order" && data.length > 7) {
       console.log("quit");
     }
@@ -72,8 +72,10 @@
       $('#tab').append(ht);
 
       var htm = "";
-      htm += "<h2>Welcome</h2><p>This application is food ordering system to reduce food losses.</p><p>You can order lunch.</p>";
-      htm += "<a href='http://www.sodexo.fi/leiritie' class='button'>Go to Sodexo Homepage</a>";
+      htm += "<h2>Welcome</h2><p>This application is pre-ordering system in big scale restuarant to reduce food losses.</p><p>You can check lunch menu and order your lunch. If you want to order today lunch, you should order before 2 pm.</p>";
+  htm += "<a href='http://www.sodexo.fi/leiritie' class='button'>Go to Sodexo Homepage</a>";
+      htm +="<br><br><br><br><h2>How to order</h2><p>Go to the menu page and click the menu which you want.</p><p>If you want to add other menu, go back to the menu page.</p><p>If you want to complete the order, click the submit button at the bottom of the order page.</p>";
+
       $('#main').append(htm);
     }
 
@@ -122,7 +124,6 @@
       html1 += "</tbody></table>";
       $('#main').append(html1);
     }
-
     function loadorder(orderdata) {
       let html2 = "";
       html2 += "<ul class='nav navbar-nav'>";
