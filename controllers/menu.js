@@ -68,6 +68,8 @@ After that, the page is changed to order page.
 exports.menuToOrderList = function(req, res, next) {
   let clickmenu = req.body;
   let menu = clickmenu['id'].toString().split('_')[0];
+  console.log(menu);
+  console.log(clickmenu['id'].toString().split('_')[1]);
   let add_date = date.thisDate(clickmenu['id'].toString().split('_')[1]);
   OrderList.findOneAndUpdate({
     session:req.sessionID,

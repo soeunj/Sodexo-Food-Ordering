@@ -1,8 +1,8 @@
-const year = new Date().getFullYear();
-const month = new Date().getMonth();
-const day = new Date().getDate();
-var today_day = new Date().getDay();
-var now_hour = new Date().getHours();
+const year = new Date().getUTCFullYear();
+const month = new Date().getUTCMonth();
+const day = new Date().getUTCDate();
+var today_day = new Date().getUTCDay();
+var now_hour = new Date().getUTCHours();
 var day_num = {
   "today" :today_day,
   "mon": 1,
@@ -16,18 +16,19 @@ function clickmenu(id) {
   var data = {
     "id": id
   };
+  console.log("hout"+now_hour);
   let clickday = id.toString().split('_')[1];
   if (day_num[clickday] < today_day) {
     alert("This day is not available to order.");
     return 0;
-  } else if ((clickday == "today") || (day_num[clickday] > today_day)) {
+  } else if (day_num[clickday] > today_day) {
     sendOrderData(data);
-  } else if (day_num[clickday] == today_day) {
-    if (now_hour < 14) {
-      sendOrderData(data);
-    } else {
+  } else if (clickday == "today") {
+    if (now_hour >= 14) {
       alert("It is too late to order. Today's menu should be ordered before 14 o'clock.");
       return 0;
+    } else {
+      sendOrderData(data);
     }
   } else {
     alert("This day is not available to order.");

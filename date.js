@@ -1,7 +1,7 @@
 var moment = require('moment');
-const year = new Date().getFullYear();
-const month = new Date().getMonth();
-const day = new Date().getDate();
+const year = new Date().getUTCFullYear();
+const month = new Date().getUTCMonth();
+const day = new Date().getUTCDate();
 var day_number = {
   "mon": 1,
   "tue": 2,
@@ -31,11 +31,22 @@ This function is to generate actual date from Monday, Tuesday, Wednesday, Thursd
 */
 exports.thisDate = function(clickday) {
   var day_difference = 0;
-  if (clickday != "today") {
-    var today_day = new Date().getDay();
-    day_difference = day_number[clickday] - today_day;
-  }
   var _today = new Date(year, month, day);
+  var todayDay = new Date().getUTCDay();
+  var now_hour = _today.getUTCHours();
+  if (clickday =="today" && now_hour < 14 ){
+    var finToday = createDateAsUTC(_today);
+    return finToday;
+  }
+  if (clickday == "today" && now_hour >= 14){
+    day_difference = 1;
+  }
+  else if (day_number[clickday] > todayDay){
+    day_difference = day_number[clickday] - todayDay;
+  }
+  else if (day_number[clickday] < todayDay){
+    day_difference = 7 - (todayDay - day_number[clickday]);
+  }
   var finToday = createDateAsUTC(_today);
   var _clickday = new Date(finToday.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;
