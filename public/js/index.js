@@ -1,9 +1,9 @@
-const year = new Date().getUTCFullYear();
-const month = new Date().getUTCMonth();
-const day = new Date().getUTCDate();
+var year = new Date().getUTCFullYear();
+var month = new Date().getUTCMonth();
+var day = new Date().getUTCDate();
 var today_day = new Date().getUTCDay();
 var now_hour = new Date().getUTCHours();
-var day_num = {
+var day_number = {
   "today" :today_day,
   "mon": 1,
   "tue": 2,
@@ -11,28 +11,47 @@ var day_num = {
   "thu": 4,
   "fri": 5
 };
+function createDateAsUTC(date) {
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+}
+function thisDate(clickday) {
+  var day_difference = 0;
+  var _today = new Date(year, month, day);
+  var todayDay = new Date().getUTCDay();
+  var now_hour = _today.getUTCHours();
+  if (clickday =="today" && now_hour < 14 ){
+    var finToday = createDateAsUTC(_today);
+    return finToday;
+  }
+  if (clickday == "today" && now_hour >= 14){
+    day_difference = 1;
+  }
+  else if (day_number[clickday] > todayDay){
+    day_difference = day_number[clickday] - todayDay;
+  }
+  else if (day_number[clickday] < todayDay){
+    day_difference = 7 - (todayDay - day_number[clickday]);
+  }
+  var finToday = createDateAsUTC(_today);
+  var _clickday = new Date(finToday.getTime() + (day_difference * 1000 * 60 * 60 * 24));
+  return _clickday;
+}
 
-function clickmenu(id) {
+function clickmenu(click_id) {
   var data = {
-    "id": id
+    "id": click_id
   };
-  console.log("hout"+now_hour);
-  let clickday = id.toString().split('_')[1];
-  if (day_num[clickday] < today_day) {
-    alert("This day is not available to order.");
+  var split_id = click_id.split('_')[1];
+  var clickdate = thisDate(split_id);
+  var clickdate_month = clickdate.getUTCMonth();
+  var clickdate_day = clickdate.getUTCDate();
+  var clickdate_year = clickdate.getUTCFullYear();
+  if( clickdate_year == year && clickdate_month == month && clickdate_day == day && now_hour >= 14){
+    alert("It is too late to order. You should order today lunch before 14 o'clock.");
     return 0;
-  } else if (day_num[clickday] > today_day) {
+  }
+  else{
     sendOrderData(data);
-  } else if (clickday == "today") {
-    if (now_hour >= 14) {
-      alert("It is too late to order. Today's menu should be ordered before 14 o'clock.");
-      return 0;
-    } else {
-      sendOrderData(data);
-    }
-  } else {
-    alert("This day is not available to order.");
-    return 0;
   }
 }
 
@@ -167,13 +186,13 @@ function today_draw_chart(orderdata) {
   new Chart(ctx, config);
 }
 
-function eachday_draw_chart(orderdata, month, year) {
+function eachday_draw_chart(orderdata, _month, _year) {
   let num_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   let _data = new Array(),
     _labels = new Array();
-  for (let j = 0; j < num_month[month]; j++) {
+  for (let j = 0; j < num_month[_month]; j++) {
     _data.push(0);
-    _labels.push(new Date(year, month, j + 1));
+    _labels.push(new Date(_year, _month, j + 1));
   }
   for (let i = 0; i < orderdata.length; i++) {
     let arrindex = new Date(orderdata[i]['_id']);
