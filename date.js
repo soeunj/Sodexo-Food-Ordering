@@ -23,6 +23,9 @@ var month_number = {
   "nov": 11,
   "dec": 12
 };
+function createDateAsUTC(date) {
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+}
 /*
 This function is to generate actual date from Monday, Tuesday, Wednesday, Thursday, and Friday.
 */
@@ -33,7 +36,8 @@ exports.thisDate = function(clickday) {
     day_difference = day_number[clickday] - today_day;
   }
   var _today = new Date(year, month, day);
-  var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
+  var finToday = createDateAsUTC(_today);
+  var _clickday = new Date(finToday.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;
 }
 /*
