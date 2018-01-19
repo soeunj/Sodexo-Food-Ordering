@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const fetch_menu = require('../fetch_menu');
-const date = require('../date');
+var datefunction = require('../date');
 var {
   mongoose
 } = require('../db/database');
@@ -68,7 +68,7 @@ After that, the page is changed to order page.
 exports.menuToOrderList = function(req, res, next) {
   let clickmenu = req.body;
   let menu = clickmenu['id'].toString().split('_')[0];
-  let add_date = date.thisDate(clickmenu['id'].toString().split('_')[1]);
+  let add_date = datefunction.thisDate(clickmenu['id'].toString().split('_')[1]);
   OrderList.findOneAndUpdate({
     session:req.sessionID,
     menu:menu,
