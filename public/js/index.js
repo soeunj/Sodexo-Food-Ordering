@@ -1,8 +1,3 @@
-var year = new Date().getUTCFullYear();
-var month = new Date().getUTCMonth();
-var day = new Date().getUTCDate();
-var today_day = new Date().getUTCDay();
-var now_hour = new Date().getUTCHours();
 var day_number = {
   "today" :today_day,
   "mon": 1,
@@ -11,17 +6,13 @@ var day_number = {
   "thu": 4,
   "fri": 5
 };
-function createDateAsUTC(date) {
-    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-}
 function thisDate(clickday) {
   var day_difference = 0;
-  var _today = new Date(year, month, day);
-  var todayDay = new Date().getUTCDay();
-  var now_hour = _today.getUTCHours();
+  var _today = new Date();
+  var todayDay = new Date().getDay();
+  var now_hour = _today.getHours();
   if (clickday =="today" && now_hour < 14 ){
-    var finToday = createDateAsUTC(_today);
-    return finToday;
+    return _today;
   }
   if (clickday == "today" && now_hour >= 14){
     day_difference = 1;
@@ -32,8 +23,7 @@ function thisDate(clickday) {
   else if (day_number[clickday] < todayDay){
     day_difference = 7 - (todayDay - day_number[clickday]);
   }
-  var finToday = createDateAsUTC(_today);
-  var _clickday = new Date(finToday.getTime() + (day_difference * 1000 * 60 * 60 * 24));
+  var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;
 }
 
@@ -41,11 +31,14 @@ function clickmenu(click_id) {
   var data = {
     "id": click_id
   };
+  var year = new Date().getFullYear();
+  var month = new Date().getMonth();
+  var day = new Date().getDate();
   var split_id = click_id.split('_')[1];
   var clickdate = thisDate(split_id);
-  var clickdate_month = clickdate.getUTCMonth();
-  var clickdate_day = clickdate.getUTCDate();
-  var clickdate_year = clickdate.getUTCFullYear();
+  var clickdate_month = clickdate.getMonth();
+  var clickdate_day = clickdate.getDate();
+  var clickdate_year = clickdate.getFullYear();
   if( clickdate_year == year && clickdate_month == month && clickdate_day == day && now_hour >= 14){
     alert("It is too late to order. You should order today lunch before 14 o'clock.");
     return 0;

@@ -1,7 +1,5 @@
 var moment = require('moment');
-const year = new Date().getUTCFullYear();
-const month = new Date().getUTCMonth();
-const day = new Date().getUTCDate();
+
 var day_number = {
   "mon": 1,
   "tue": 2,
@@ -23,20 +21,16 @@ var month_number = {
   "nov": 11,
   "dec": 12
 };
-function createDateAsUTC(date) {
-    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-}
 /*
 This function is to generate actual date from Monday, Tuesday, Wednesday, Thursday, and Friday.
 */
 exports.thisDate = function(clickday) {
   var day_difference = 0;
-  var _today = new Date(year, month, day);
-  var todayDay = new Date().getUTCDay();
-  var now_hour = _today.getUTCHours();
+  var _today = new Date();
+  var todayDay = new Date().getDay();
+  var now_hour = _today.getHours();
   if (clickday =="today" && now_hour < 14 ){
-    var finToday = createDateAsUTC(_today);
-    return finToday;
+    return _today;
   }
   if (clickday == "today" && now_hour >= 14){
     day_difference = 1;
@@ -47,8 +41,7 @@ exports.thisDate = function(clickday) {
   else if (day_number[clickday] < todayDay){
     day_difference = 7 - (todayDay - day_number[clickday]);
   }
-  var finToday = createDateAsUTC(_today);
-  var _clickday = new Date(finToday.getTime() + (day_difference * 1000 * 60 * 60 * 24));
+  var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;
 }
 /*
@@ -56,6 +49,7 @@ This function is to calculate current month's start day.
 */
 exports.thisMonthStartDay = function(month) {
   let startOfMonth;
+  var year = new Date().getFullYear();
   if (month == "thismonth") {
     startOfMonth = moment().startOf('month').toDate();
   } else {
@@ -67,6 +61,7 @@ exports.thisMonthStartDay = function(month) {
 This function is to calculate current month's end day.
 */
 exports.thisMonthEndDay = function(month) {
+  var year = new Date().getFullYear();
   let endOfMonth;
   if (month == "thismonth") {
     endOfMonth = moment().endOf('month').toDate();
