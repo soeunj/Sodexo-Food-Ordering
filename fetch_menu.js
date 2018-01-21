@@ -39,7 +39,6 @@ clickday is Monday, Tuesday, Wednesday, Thursday, or Friday and date.thisDate fu
 Using this date_splited, make url and fetch menu data. After that, return the data as Json format.
 */
 exports.fetch_menu = function(clickday){
-  console.log(new Date());
   var date_splited = date.thisDate(clickday);
   var url = "https://www.sodexo.fi/ruokalistat/output/daily_json/16365/" + date_splited.getFullYear() + "/" + num_month[date_splited.getMonth()] + "/" + change_date(date_splited.getDate()) + "/fi";
   var a = date_splited.getDate();

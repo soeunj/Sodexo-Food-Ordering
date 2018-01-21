@@ -12,6 +12,7 @@ var {
 This function is to show order list on order page.
 It fetch the orderlist data using sessionID to identify the user.
 */
+
 exports.orderList = function(req, res, next) {
   OrderList.find({session:req.sessionID},function(err, orderlist){
     if(err) throw err;
@@ -85,6 +86,7 @@ exports.submitOrder = function(req, res, next) {
       });
       newOrder.save().then((doc) => {
         if (err) throw err;
+        //console.log(doc);
         console.log("Success to order");
         OrderList.remove({session:req.sessionID}, function(err) {
           if(err) throw err;

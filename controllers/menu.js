@@ -67,15 +67,16 @@ After that, the page is changed to order page.
 */
 exports.menuToOrderList = function(req, res, next) {
   let clickmenu = req.body;
-  console.log(clickmenu);
+  //console.log(clickmenu);
   let menu = clickmenu['id'].toString().split('_')[0];
   let menu_title = clickmenu['id'].toString().split('_')[1];
   let add_date = datefunction.thisDate(clickmenu['id'].toString().split('_')[2]);
+  let aadd_date = add_date.toString().slice(0,16);
+  //console.log('menu date :'+aadd_date);
   OrderList.findOneAndUpdate({
     session:req.sessionID,
-    menu:menu,
     menutitle:menu_title,
-    date:add_date
+    date:aadd_date
   }, {
     $inc: {
       count: +1
@@ -83,10 +84,11 @@ exports.menuToOrderList = function(req, res, next) {
   }, {
     returnOriginal: false
   }).then((result) => {
+    //console.log(result);
     if (!result) {
       var newOrderList = new OrderList({
         session: req.sessionID,
-        date: add_date,
+        date: aadd_date,
         menu: menu,
         menutitle:menu_title,
         count: 1

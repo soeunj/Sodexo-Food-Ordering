@@ -6,15 +6,32 @@ var {
   Order
 } = require('../models/order');
 var datefunction = require('../date');
+var month_date = {
+  0:31,
+  1:28,
+  2:31,
+  3:30,
+  4:31,
+  5:30,
+  6:31,
+  8:31,
+  9:30,
+  10:31,
+  11:30,
+  12:31
+}
 /*
 This function is to show today's order data.
 It generates a graph which shows today's order data about each menus.
 */
-exports.todayStatistic = function(req, res, next) {
-  let _date = datefunction.thisDate("today");
+exports.todayStatistic = function(req, res, next){
+  let today_date = new Date();
   Order.aggregate([{
       $match: {
-        orderingfooddate: _date
+        orderingfooddate: {
+          '$gte':new Date(today_date.getFullYear(), today_date.getMonth(), today_date.getDate()),
+          '$lte':new Date(today_date.getFullYear(), today_date.getMonth(), today_date.getDate()+1)
+        }
       }
     },
     {
@@ -25,8 +42,9 @@ exports.todayStatistic = function(req, res, next) {
         }
       }
     }
-  ], function(err, result) {
-    if (err) throw err;
+  ], function(err, result){
+    if(err) throw err;
+    //console.log(result);
     res.render('index.ejs', {
       data: result,
       month: "",
@@ -37,6 +55,7 @@ exports.todayStatistic = function(req, res, next) {
     });
   });
 };
+
 /*
 This function is to show each day's order data.
 It generates a graph which shows each day's total order data.
