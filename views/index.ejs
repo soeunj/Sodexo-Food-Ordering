@@ -15,9 +15,10 @@
     </div>
   </nav>
 
-  <div id="main" class="main container-fluid text-center">
+  <div id="main" class="main container-fluid text-center" style="overflow-x:auto;">
 
   </div>
+
   <script>
     var today_day = new Date().getDay();
     var now_hour = new Date().getHours();
@@ -103,11 +104,11 @@
       $('#tab').append(html);
       var html1 = "";
       html1 += "<h2><%=dayofmenu%></h2><p>You can order meals.</br>Click menu which you want to order.</p></br>";
-      html1 += "<table class='table table-hover'>";
+      html1 += "<div class='tablewrapper'><table class='table table-hover tablediv'>";
       html1 += "<thead><tr><th class='col-xs-3 text-center'>Menu</th><th class='col-xs-6 text-center'>Description</th><th class='col-xs-3 text-center'>Price (€)</th></tr></thead>";
       html1 += "<tbody id='menu'>";
       html1 += "<% for(var i=0; i<data.length; i++) {%>";
-      html1 += "<tr id='<%=data[i]['category']%>_<%=date%>' onclick='clickmenu(this.id)'>";
+      html1 += "<tr id='<%=data[i]['category']%>_<%=data[i]['title_fi']%>_<%=date%>' onclick='clickmenu(this.id)'>";
       html1 += "<td id='menu_category' class='col-xs-3 text-center'>";
       html1 += "<%=data[i]['category'] %>";
       html1 += "</td>";
@@ -121,7 +122,7 @@
       html1 += "<td class='col-xs-3 text-center'>";
       html1 += "<%=data[i]['price']%></td></tr>";
       html1 += "<% } %>";
-      html1 += "</tbody></table>";
+      html1 += "</tbody></table></div>";
       $('#main').append(html1);
     }
     function loadorder(orderdata) {
@@ -146,17 +147,20 @@
       html2 += "</ul></li></ul>";
       $('#tab').append(html2);
       let html3 = "";
-      html3 += "<h2>ORDER LIST</h2><p>This is your order list.</br>If you want to confirm your order, click order button.</p></br>";
-      html3 += "<table class='table'>";
+      html3 += "<h2>ORDER LIST</h2><p>This is your order list.</br>If you want to confirm your order, click order button.</p>";
+      html3 += "<button id='order_button' class='btn btn-success pull-right' onclick='submitOrder(data)'>Order</button></br>";
+      html3 += "<div class='tablewrapper'><table class='table tablediv'>";
       html3 += "<thead>";
-      html3 += "<tr><th class='col-xs-3 text-center'>Date</th><th class='col-xs-6 text-center'>Menu</th><th class='col-xs-3 text-center'>Count</th><th class='col-xs-3 text-center'>Count Confirm</th><th class='col-xs-3 text-center'>Delete</th></tr></thead>";
+      html3 += "<tr><th class='col-xs-3 text-center'>Date</th><th class='col-xs-3 text-center'>Menu</th><th class='col-xs-3 text-center'>Description</th><th class='col-xs-3 text-center'>Count</th><th class='col-xs-3 text-center'>Count Confirm</th><th class='col-xs-3 text-center'>Delete</th></tr></thead>";
       html3 += "<tbody id='orderlist'>";
       for (var i = 0; i < orderdata.length; i++) {
         html3 += "<tr>";
         html3 += "<td id='orderdate' class='col-xs-3 text-center'>";
         html3 += orderdata[i]['date'].toString().slice(0, 10) + "</td>";
-        html3 += "<td class='col-xs-6 text-center'>";
+        html3 += "<td class='col-xs-3 text-center'>";
         html3 += orderdata[i]['menu'] + "</td>";
+        html3 += "<td class='col-xs-3 text-center'>";
+        html3 += orderdata[i]['menutitle'] + "</td>";
         html3 += "<td class='col-xs-3 text-center'>";
         html3 += "<input type='number' id='" + orderdata[i]['_id'] + "_count' value='" + orderdata[i]['count'] + "' class='form-control'></td>";
         html3 += "<td class='col-xs-3 text-center'>";
@@ -166,8 +170,7 @@
         html3 += "<button id='delete" + i + "' class='btn btn-default' onclick='delete_order(this.id)'>";
         html3 += "<i class='glyphicon glyphicon-remove'></i></button></td></tr>";
       }
-      html3 += "</tbody></table>";
-      html3 += "<button id='order_button' class='btn btn-success pull-right' onclick='submitOrder(data)'>Order</button>";
+      html3 += "</tbody></table></div>";
       $('#main').append(html3);
     }
 
@@ -193,14 +196,14 @@
       h2 += "</ul></li></ul>";
       $('#tab').append(h2);
       var h3 = "";
-      h3 += "<h2>STATISTIC</h2><p>This graph is blahblah.</p></br>";
+      h3 += "<h2>STATISTIC</h2><p>This graph shows the total number of orders for each day.</p>";
       h3 += "<div class='dropdown'>";
       h3 += "<button class='btn btn-success dropdown-toggle' type='button' data-toggle='dropdown'>Month<span class='caret'></span></button>";
       h3 += "<ul class='dropdown-menu' role='menu' aria-labelledby='menu1'>";
       h3 += "<li><a href='/statistic/jan'>January</a></li><li><a href='/statistic/feb'>February</a></li><li><a href='/statistic/mar'>March</a></li><li><a href='/statistic/apr'>April</a></li>";
       h3 += "<li><a href='/statistic/may'>May</a></li><li><a href='/statistic/jun'>June</a></li><li><a href='/statistic/jul'>July</a></li><li><a href='/statistic/aug'>August</a></li>";
       h3 += "<li><a href='/statistic/sep'>September</a></li><li><a href='/statistic/oct'>October</a></li><li><a href='/statistic/nov'>November</a></li><li><a href='/statistic/dec'>December</a></li>";
-      h3 += "</ul></div><canvas id='myChart' width='800' height='450'></canvas>";
+      h3 += "</ul></div><div class='chartwrapper'><canvas id='myChart' class='chartdiv'></canvas></div>";
       $('#main').append(h3);
       eachday_draw_chart(orderdata, month, year);
     }
@@ -227,11 +230,14 @@
       $('#tab').append(h);
       var h1 = "";
       h1 += "<h2>TODAY'S ORDER</h2><p>This graph shows today's order.</p></br>";
-      h1 += "<canvas id='myChart' width='800' height='450'></canvas>";
+      h1 += "<div class='chartwrapper'><canvas id='myChart' class='chartdiv'></canvas></div>";
       $('#main').append(h1);
       today_draw_chart(orderdata);
     }
   </script>
+  <footer class="container-fluid text-center">
+    <p><img src="../img/metropolia.png" width="150" style="margin-top:0.35cm;">  <img src="../img/sodexo.png" width="100"></p>
+  </footer>
 </body>
 
 </html>

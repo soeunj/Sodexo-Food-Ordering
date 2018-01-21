@@ -11,6 +11,10 @@ var OrderList = mongoose.model('OrderList',{
     type: String,
     required: true
   },
+  menutitle:{
+    type:String,
+    required: true
+  },
   count:{
     type: Number,
     required: true

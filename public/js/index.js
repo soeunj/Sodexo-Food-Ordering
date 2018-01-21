@@ -1,5 +1,4 @@
 var day_number = {
-  "today" :today_day,
   "mon": 1,
   "tue": 2,
   "wed": 3,
@@ -34,7 +33,7 @@ function clickmenu(click_id) {
   var year = new Date().getFullYear();
   var month = new Date().getMonth();
   var day = new Date().getDate();
-  var split_id = click_id.split('_')[1];
+  var split_id = click_id.split('_')[2];
   var clickdate = thisDate(split_id);
   var clickdate_month = clickdate.getMonth();
   var clickdate_day = clickdate.getDate();

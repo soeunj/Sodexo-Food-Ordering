@@ -28,7 +28,46 @@ p {
 .table-hover tbody tr:hover {
   background-color: #c9b093;
 }
+footer {
 
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:70px;
+
+    background:#ccc;
+
+}
+.chartwrapper {
+  width: 80%;
+  margin: 10px auto;
+  position: relative;
+  padding-bottom: 50%;
+}
+
+.chartdiv {
+  position: absolute;
+  width: 100%;
+  /*border: 1px dotted #ccc;*/
+}
+.tablewrapper {
+  width: 90%;
+  margin: 10px auto;
+  position: relative;
+  padding-bottom: 50%;
+}
+
+.tablediv {
+  position: absolute;
+  width: 100%;
+  /*border: 1px dotted #ccc;*/
+}
+.buttondiv{
+  position:absolute;
+}
 h4 {
   font-size: 1.5em;
   line-height: 1.375em;
@@ -69,6 +108,8 @@ nav.sidebar, .main {
 
 .main {
   padding: 10px 10px 0 10px;
+  position:relative;
+  height:100%;
 }
 
 canvas {

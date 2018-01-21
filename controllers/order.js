@@ -90,6 +90,7 @@ exports.submitOrder = function(req, res, next) {
           if(err) throw err;
         });
       }, (e) => {
+        console.log(e);
         console.log('Unable to order');
       });
     }
