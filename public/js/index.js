@@ -153,7 +153,7 @@ function today_draw_chart(orderdata) {
         data: _data,
         backgroundColor: ["#4F5C2F", "#89A04F", "#B2C485", "#CADBAB", "#AAB683", "#909779", "#737764"]
       }],
-      labels: ['Kotiruoka 1.', 'Kotiruoka 2.', 'Kasvisruoka', 'Kasviskeitto', 'Leipälounas', 'Leipälounas', 'Jälkiruoka']
+      labels: ['Kotiruoka 1.', 'Kotiruoka 2.', 'Kasvisruoka', 'Erikoislounas', 'Leipälounas', 'Kasviskeitto', 'Jälkiruoka']
     },
     options: {
       responsive: true,
