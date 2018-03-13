@@ -1,50 +1,9 @@
-var day_number = {
-  "mon": 1,
-  "tue": 2,
-  "wed": 3,
-  "thu": 4,
-  "fri": 5
-};
-function thisDate(clickday) {
-  var day_difference = 0;
-  var _today = new Date();
-  var todayDay = new Date().getDay();
-  var now_hour = _today.getHours();
-  if (clickday =="today" && now_hour < 14 ){
-    return _today;
-  }
-  if (clickday == "today" && now_hour >= 14){
-    day_difference = 1;
-  }
-  else if (day_number[clickday] > todayDay){
-    day_difference = day_number[clickday] - todayDay;
-  }
-  else if (day_number[clickday] < todayDay){
-    day_difference = 7 - (todayDay - day_number[clickday]);
-  }
-  var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
-  return _clickday;
-}
 
 function clickmenu(click_id) {
   var data = {
     "id": click_id
   };
-  var year = new Date().getFullYear();
-  var month = new Date().getMonth();
-  var day = new Date().getDate();
-  var split_id = click_id.split('_')[2];
-  var clickdate = thisDate(split_id);
-  var clickdate_month = clickdate.getMonth();
-  var clickdate_day = clickdate.getDate();
-  var clickdate_year = clickdate.getFullYear();
-  if( clickdate_year == year && clickdate_month == month && clickdate_day == day && now_hour >= 14){
-    alert("It is too late to order. You should order today lunch before 14 o'clock.");
-    return 0;
-  }
-  else{
-    sendOrderData(data);
-  }
+  sendOrderData(data);
 }
 
 function sendOrderData(data) {
@@ -125,7 +84,6 @@ function delete_order(id) {
     }
   });
 }
-
 
 function today_draw_chart(orderdata) {
   let _labels_index = {

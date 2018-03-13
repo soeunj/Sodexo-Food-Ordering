@@ -35,11 +35,14 @@ exports.thisDate = function(clickday) {
   if (clickday == "today" && now_hour >= 14){
     day_difference = 1;
   }
-  else if (day_number[clickday] > todayDay){
-    day_difference = day_number[clickday] - todayDay;
+  else if(todayDay == day_number[clickday] && now_hour >= 14){
+    day_difference = 7;
   }
   else if (day_number[clickday] < todayDay){
     day_difference = 7 - (todayDay - day_number[clickday]);
+  }
+  else if (day_number[clickday] > todayDay){
+    day_difference = day_number[clickday] - todayDay;
   }
   var _clickday = new Date(_today.getTime() + (day_difference * 1000 * 60 * 60 * 24));
   return _clickday;

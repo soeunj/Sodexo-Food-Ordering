@@ -26,6 +26,10 @@ It generates a graph which shows today's order data about each menus.
 */
 exports.todayStatistic = function(req, res, next){
   let today_date = new Date();
+  //after 2 pm, the statistics is about next day order.
+  if(today_date.getHours() >= 14){
+    today_date.setDate(today_date.getDate() + 1);
+  }
   Order.aggregate([{
       $match: {
         orderingfooddate: {
